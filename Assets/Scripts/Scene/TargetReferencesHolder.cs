@@ -1,0 +1,20 @@
+﻿using UnityEngine;
+
+namespace TowerDefense.Scene
+{
+    public class TargetReferencesHolder : MonoBehaviour
+    {
+        public static TargetReferencesHolder Instance => _instance;
+        private static TargetReferencesHolder _instance;
+
+        private void Awake()
+        {
+            if (_instance == null)
+                _instance = this;
+            else if (_instance != this)
+                Destroy(this);
+        }
+
+        public Transform PlayerBase;
+    }
+}
