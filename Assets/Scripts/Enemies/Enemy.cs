@@ -1,12 +1,14 @@
+using TowerDefense.Combat;
 using TowerDefense.Scene;
 using UnityEngine;
 
 namespace TowerDefense.Enemies
 {
-    public abstract class Enemy : MonoBehaviour
+    public abstract class Enemy : MonoBehaviour, IDamageReceiver
     {
         [SerializeField] private EnemyConfig _enemyConfig;
 
+        protected TeamTag _teamTag;
         protected int _hitPoints;
         protected int _damage;
         protected float _speed;
@@ -29,23 +31,30 @@ namespace TowerDefense.Enemies
 
         protected virtual void Initialize()
         {
+            _teamTag = TeamTag.Enemy;
             _hitPoints = _enemyConfig.HitPoints;
             _damage = _enemyConfig.Damage;
             _speed = _enemyConfig.Speed;
             _targetPosition = TargetReferencesHolder.Instance.PlayerBase.position;
         }
 
-        protected virtual void Update()
-        {
-            if (_hitPoints <= 0)
-                Die();
-        }
-
         protected abstract void Move();
 
         protected virtual void Die()
         {
-            Destroy(this);
+            Destroy(gameObject);
+        }
+
+        public void ApplyDamage(int damagePoints)
+        {
+            _hitPoints -= damagePoints;
+            if (_hitPoints <= 0)
+                Die();
+        }
+
+        public TeamTag GetTeamTag()
+        {
+            return _teamTag;
         }
     }
 }
