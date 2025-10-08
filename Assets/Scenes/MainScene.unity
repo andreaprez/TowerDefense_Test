@@ -216,7 +216,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPoint - 3
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8550034151763596078, guid: b1437a84a99e84d749207c69cf8e4ac4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b1437a84a99e84d749207c69cf8e4ac4, type: 3}
 --- !u!1 &325702626
 GameObject:
@@ -711,6 +712,11 @@ PrefabInstance:
       propertyPath: m_LocalEulerAnglesHint.z
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 1307018933302881646, guid: 458d7fbe6b08d464f9bbc0ea868876a4,
+        type: 3}
+      propertyPath: _teamTag
+      value: 1
+      objectReference: {fileID: 0}
     - target: {fileID: 3563692720844785907, guid: 458d7fbe6b08d464f9bbc0ea868876a4,
         type: 3}
       propertyPath: m_Name
@@ -791,7 +797,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPoint - 4
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8550034151763596078, guid: b1437a84a99e84d749207c69cf8e4ac4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b1437a84a99e84d749207c69cf8e4ac4, type: 3}
 --- !u!1001 &1431058235
 PrefabInstance:
@@ -875,7 +882,8 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPoint - 1
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8550034151763596078, guid: b1437a84a99e84d749207c69cf8e4ac4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b1437a84a99e84d749207c69cf8e4ac4, type: 3}
 --- !u!850595691 &1888238659
 LightingSettings:
@@ -1006,5 +1014,6 @@ PrefabInstance:
       propertyPath: m_Name
       value: SpawnPoint - 2
       objectReference: {fileID: 0}
-    m_RemovedComponents: []
+    m_RemovedComponents:
+    - {fileID: 8550034151763596078, guid: b1437a84a99e84d749207c69cf8e4ac4, type: 3}
   m_SourcePrefab: {fileID: 100100000, guid: b1437a84a99e84d749207c69cf8e4ac4, type: 3}
