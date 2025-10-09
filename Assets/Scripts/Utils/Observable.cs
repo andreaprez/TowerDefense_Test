@@ -11,7 +11,7 @@ namespace Utils
             _value = value;
         }
 
-        public event Action ValueChanged;
+        public event Action<T> ValueChanged;
         public T Value {
             get => _value;
             set
@@ -19,7 +19,7 @@ namespace Utils
                 if (Equals(value, _value))
                     return;
                 _value = value;
-                ValueChanged?.Invoke();
+                ValueChanged?.Invoke(_value);
             }
         }
     }
