@@ -1,6 +1,5 @@
 using TowerDefense.Combat;
 using TowerDefense.GameFlow;
-using TowerDefense.Scene;
 using TowerDefense.Service;
 using TowerDefense.UI;
 using UnityEngine;

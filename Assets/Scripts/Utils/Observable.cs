@@ -1,6 +1,6 @@
 ﻿using System;
 
-namespace Utils
+namespace TowerDefense.Utils
 {
     public class Observable<T>
     {
