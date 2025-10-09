@@ -1,6 +1,6 @@
-﻿using TowerDefense.Service;
+﻿using TowerDefense.GameFlow.EndgamePopup;
+using TowerDefense.Service;
 using TowerDefense.Signals;
-using UnityEngine;
 
 namespace TowerDefense.GameFlow
 {
@@ -43,10 +43,7 @@ namespace TowerDefense.GameFlow
         private void EndGame(bool isWin)
         {
             _gameState = GameState.Endgame;
-            if (isWin)
-                Debug.Log("Win!"); //TODO: Show win
-            else
-                Debug.Log("Lose!"); //TODO: Show lose
+            _signalService.GetSignal<ShowEndgamePopupSignal>().Send(isWin);
         }
     }
 }
