@@ -7,8 +7,9 @@ namespace TowerDefense.Player
     {
         [SerializeField] private PlayerBaseConfig _baseConfig;
         [SerializeField] private TeamTag _teamTag;
+        [SerializeField] private HealthBar _healthBar;
 
-        [SerializeField] private int _hitPoints;
+        private int _hitPoints;
 
         private void Start()
         {
@@ -27,9 +28,15 @@ namespace TowerDefense.Player
 
         private void Initialize()
         {
-            _hitPoints = _baseConfig.HitPoints;
+            SetHitPoints(_baseConfig.HitPoints);
         }
 
+        private void SetHitPoints(int value)
+        {
+            _hitPoints = value;
+            _healthBar.UpdateBarFill(_hitPoints, _baseConfig.HitPoints);
+        }
+        
         private void Die()
         {
             Destroy(gameObject);
@@ -37,7 +44,7 @@ namespace TowerDefense.Player
 
         public void ApplyDamage(int damagePoints)
         {
-            _hitPoints -= damagePoints;
+            SetHitPoints(_hitPoints - damagePoints);
             if (_hitPoints <= 0)
                 Die();
         }

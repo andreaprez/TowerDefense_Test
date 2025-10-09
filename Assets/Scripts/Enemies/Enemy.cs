@@ -7,6 +7,7 @@ namespace TowerDefense.Enemies
     public abstract class Enemy : MonoBehaviour, IDamageReceiver
     {
         [SerializeField] private EnemyConfig _enemyConfig;
+        [SerializeField] private HealthBar _healthBar;
 
         protected TeamTag _teamTag;
         protected int _hitPoints;
@@ -32,10 +33,16 @@ namespace TowerDefense.Enemies
         protected virtual void Initialize()
         {
             _teamTag = TeamTag.Enemy;
-            _hitPoints = _enemyConfig.HitPoints;
+            SetHitPoints(_enemyConfig.HitPoints);
             _damage = _enemyConfig.Damage;
             _speed = _enemyConfig.Speed;
             _targetPosition = TargetReferencesHolder.Instance.PlayerBase.position;
+        }
+
+        private void SetHitPoints(int value)
+        {
+            _hitPoints = value;
+            _healthBar.UpdateBarFill(_hitPoints, _enemyConfig.HitPoints);
         }
 
         protected abstract void Move();
@@ -47,7 +54,7 @@ namespace TowerDefense.Enemies
 
         public void ApplyDamage(int damagePoints)
         {
-            _hitPoints -= damagePoints;
+            SetHitPoints(_hitPoints - damagePoints);
             if (_hitPoints <= 0)
                 Die();
         }
