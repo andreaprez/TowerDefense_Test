@@ -1,4 +1,5 @@
 using TowerDefense.Combat;
+using TowerDefense.GameFlow;
 using UnityEngine;
 
 namespace TowerDefense.Enemies
@@ -7,6 +8,9 @@ namespace TowerDefense.Enemies
     {
         private void Update()
         {
+            if (_gameFlowService.GameState != GameState.Gameplay)
+                return;
+
             if (_hitPoints > 0)
                 Move();
         }
