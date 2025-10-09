@@ -6,14 +6,9 @@ namespace TowerDefense.GameFlow
 {
     public class GameInit : MonoBehaviour
     {
-        private SignalService _signalService;
-
-        private void Start()
+        private void Awake()
         {
             RegisterServices();
-
-            _signalService = ServiceLocator.GetService<SignalService>();
-            _signalService.GetSignal<GameStartedSignal>().Send();
         }
 
         private void RegisterServices()
