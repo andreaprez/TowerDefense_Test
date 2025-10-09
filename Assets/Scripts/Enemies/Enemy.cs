@@ -1,5 +1,6 @@
 using TowerDefense.Combat;
 using TowerDefense.Scene;
+using TowerDefense.UI;
 using UnityEngine;
 
 namespace TowerDefense.Enemies
