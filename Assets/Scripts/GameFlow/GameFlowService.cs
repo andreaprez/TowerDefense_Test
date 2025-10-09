@@ -1,4 +1,5 @@
 ﻿using TowerDefense.Service;
+using TowerDefense.Signals;
 using UnityEngine;
 
 namespace TowerDefense.GameFlow
@@ -8,15 +9,38 @@ namespace TowerDefense.GameFlow
         public GameState GameState => _gameState;
         private GameState _gameState;
 
-        public void Init() { }
-        public void Dispose() { }
+        private SignalService _signalService;
 
-        public void StartGame()
+        public void Init()
+        {
+            _signalService = ServiceLocator.GetService<SignalService>();
+            _signalService.GetSignal<GameStartedSignal>().AddListener(OnGameStarted);
+            _signalService.GetSignal<GameEndedSignal>().AddListener(OnGameEnded);
+        }
+
+        public void Dispose()
+        {
+            _signalService.GetSignal<GameStartedSignal>().RemoveListener(OnGameStarted);
+            _signalService.GetSignal<GameEndedSignal>().RemoveListener(OnGameEnded);
+            _signalService = null;
+        }
+
+        private void OnGameStarted()
+        {
+            StartGame();
+        }
+
+        private void OnGameEnded(bool isWin)
+        {
+            EndGame(isWin);
+        }
+
+        private void StartGame()
         {
             _gameState = GameState.Gameplay;
         }
 
-        public void EndGame(bool isWin)
+        private void EndGame(bool isWin)
         {
             _gameState = GameState.Endgame;
             if (isWin)
