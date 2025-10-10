@@ -1,4 +1,4 @@
-﻿using System;
+﻿using TowerDefense.Currency;
 using TowerDefense.Input;
 using TowerDefense.Service;
 using TowerDefense.Signals;
@@ -11,6 +11,7 @@ namespace TowerDefense.Player
         [SerializeField] private TurretsBuildConfig _turretsBuildConfig;
 
         private SignalService _signalService;
+        private CurrencyService _currencyService;
         private Turret _selectedTurret;
 
         private void Start()
@@ -21,6 +22,7 @@ namespace TowerDefense.Player
         private void Initialize()
         {
             _signalService = ServiceLocator.GetService<SignalService>();
+            _currencyService = ServiceLocator.GetService<CurrencyService>();
             _signalService.GetSignal<ToggledSelectionForRegularTurretSignal>().AddListener(OnToggleSelectionForRegularTurret);
             _signalService.GetSignal<PlacedTurretSignal>().AddListener(OnPlaceTurret);
         }
@@ -41,8 +43,12 @@ namespace TowerDefense.Player
             if (_selectedTurret == null)
                 return;
 
+            if (_turretsBuildConfig.TurretCost > _currencyService.Coins)
+                return;
+
             Instantiate(_selectedTurret, position, Quaternion.identity, transform);
             _signalService.GetSignal<ToggledSelectionForRegularTurretSignal>().Send();
+            _currencyService.RemoveCoins(_turretsBuildConfig.TurretCost);
         }
     }
 }
