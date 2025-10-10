@@ -24,18 +24,25 @@ namespace TowerDefense.Player
             _signalService = ServiceLocator.GetService<SignalService>();
             _currencyService = ServiceLocator.GetService<CurrencyService>();
             _signalService.GetSignal<ToggledSelectionForRegularTurretSignal>().AddListener(OnToggleSelectionForRegularTurret);
+            _signalService.GetSignal<ToggledSelectionForFreezeTurretSignal>().AddListener(OnToggleSelectionForFreezeTurret);
             _signalService.GetSignal<PlacedTurretSignal>().AddListener(OnPlaceTurret);
         }
 
         private void OnDestroy()
         {
             _signalService.GetSignal<ToggledSelectionForRegularTurretSignal>().RemoveListener(OnToggleSelectionForRegularTurret);
+            _signalService.GetSignal<ToggledSelectionForFreezeTurretSignal>().RemoveListener(OnToggleSelectionForFreezeTurret);
             _signalService.GetSignal<PlacedTurretSignal>().RemoveListener(OnPlaceTurret);
         }
 
         private void OnToggleSelectionForRegularTurret()
         {
             _selectedTurret = _selectedTurret == _turretsBuildConfig.RegularTurretPrefab ? null : _turretsBuildConfig.RegularTurretPrefab;
+        }
+
+        private void OnToggleSelectionForFreezeTurret()
+        {
+            _selectedTurret = _selectedTurret == _turretsBuildConfig.FreezeTurretPrefab ? null : _turretsBuildConfig.FreezeTurretPrefab;
         }
 
         private void OnPlaceTurret(Vector3 position)

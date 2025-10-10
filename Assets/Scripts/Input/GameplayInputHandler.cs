@@ -29,6 +29,9 @@ namespace TowerDefense.Input
             if (UnityEngine.Input.GetKeyUp(KeyCode.Alpha1))
                 ToggleSelectionForRegularTurret();
 
+            if (UnityEngine.Input.GetKeyUp(KeyCode.Alpha2))
+                ToggleSelectionForFreezeTurret();
+
             if (UnityEngine.Input.GetMouseButtonDown(0))
                 PlaceTurret();
         }
@@ -36,6 +39,11 @@ namespace TowerDefense.Input
         private void ToggleSelectionForRegularTurret()
         {
             _signalService.GetSignal<ToggledSelectionForRegularTurretSignal>().Send();
+        }
+
+        private void ToggleSelectionForFreezeTurret()
+        {
+            _signalService.GetSignal<ToggledSelectionForFreezeTurretSignal>().Send();
         }
 
         private void PlaceTurret()
