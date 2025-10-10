@@ -496,6 +496,154 @@ Transform:
   m_Father: {fileID: 0}
   m_RootOrder: 10
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+--- !u!1001 &513326685
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 1843817631}
+    m_Modifications:
+    - target: {fileID: 1378341696037169072, guid: 1e638bb922634c7419d07cfd297b89dd,
+        type: 3}
+      propertyPath: m_Name
+      value: FreezeTurretButton
+      objectReference: {fileID: 0}
+    - target: {fileID: 2497091983363096054, guid: 1e638bb922634c7419d07cfd297b89dd,
+        type: 3}
+      propertyPath: m_text
+      value: 2
+      objectReference: {fileID: 0}
+    - target: {fileID: 3355005438361989525, guid: 1e638bb922634c7419d07cfd297b89dd,
+        type: 3}
+      propertyPath: m_Sprite
+      value: 
+      objectReference: {fileID: 21300000, guid: f81c67d93bb99d4409df6083f2b3d8d4,
+        type: 3}
+    - target: {fileID: 8667189270853046672, guid: 1e638bb922634c7419d07cfd297b89dd,
+        type: 3}
+      propertyPath: m_Pivot.x
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667189270853046672, guid: 1e638bb922634c7419d07cfd297b89dd,
+        type: 3}
+      propertyPath: m_Pivot.y
+      value: 0.5
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667189270853046672, guid: 1e638bb922634c7419d07cfd297b89dd,
+        type: 3}
+      propertyPath: m_RootOrder
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667189270853046672, guid: 1e638bb922634c7419d07cfd297b89dd,
+        type: 3}
+      propertyPath: m_AnchorMax.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667189270853046672, guid: 1e638bb922634c7419d07cfd297b89dd,
+        type: 3}
+      propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667189270853046672, guid: 1e638bb922634c7419d07cfd297b89dd,
+        type: 3}
+      propertyPath: m_AnchorMin.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667189270853046672, guid: 1e638bb922634c7419d07cfd297b89dd,
+        type: 3}
+      propertyPath: m_AnchorMin.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667189270853046672, guid: 1e638bb922634c7419d07cfd297b89dd,
+        type: 3}
+      propertyPath: m_SizeDelta.x
+      value: 100
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667189270853046672, guid: 1e638bb922634c7419d07cfd297b89dd,
+        type: 3}
+      propertyPath: m_SizeDelta.y
+      value: 80
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667189270853046672, guid: 1e638bb922634c7419d07cfd297b89dd,
+        type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667189270853046672, guid: 1e638bb922634c7419d07cfd297b89dd,
+        type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667189270853046672, guid: 1e638bb922634c7419d07cfd297b89dd,
+        type: 3}
+      propertyPath: m_LocalPosition.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667189270853046672, guid: 1e638bb922634c7419d07cfd297b89dd,
+        type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667189270853046672, guid: 1e638bb922634c7419d07cfd297b89dd,
+        type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667189270853046672, guid: 1e638bb922634c7419d07cfd297b89dd,
+        type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667189270853046672, guid: 1e638bb922634c7419d07cfd297b89dd,
+        type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667189270853046672, guid: 1e638bb922634c7419d07cfd297b89dd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667189270853046672, guid: 1e638bb922634c7419d07cfd297b89dd,
+        type: 3}
+      propertyPath: m_AnchoredPosition.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667189270853046672, guid: 1e638bb922634c7419d07cfd297b89dd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667189270853046672, guid: 1e638bb922634c7419d07cfd297b89dd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 8667189270853046672, guid: 1e638bb922634c7419d07cfd297b89dd,
+        type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 1e638bb922634c7419d07cfd297b89dd, type: 3}
+--- !u!224 &513326686 stripped
+RectTransform:
+  m_CorrespondingSourceObject: {fileID: 8667189270853046672, guid: 1e638bb922634c7419d07cfd297b89dd,
+    type: 3}
+  m_PrefabInstance: {fileID: 513326685}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &513326687 stripped
+MonoBehaviour:
+  m_CorrespondingSourceObject: {fileID: 3672179130763161907, guid: 1e638bb922634c7419d07cfd297b89dd,
+    type: 3}
+  m_PrefabInstance: {fileID: 513326685}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bacc4e02dfa84f19a645096c638a2869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
 --- !u!1 &530968201
 GameObject:
   m_ObjectHideFlags: 0
@@ -1468,6 +1616,7 @@ RectTransform:
   m_ConstrainProportionsScale: 0
   m_Children:
   - {fileID: 2093417867766913312}
+  - {fileID: 513326686}
   m_Father: {fileID: 2086570205}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
@@ -1529,6 +1678,7 @@ MonoBehaviour:
   _turretsBuildConfig: {fileID: 11400000, guid: 8001b61591b198f4dbbd6c18993f73e5,
     type: 2}
   _regularTurretButton: {fileID: 2093417867766913313}
+  _freezeTurretButton: {fileID: 513326687}
   _selectedColor: {r: 0.49243942, g: 0.5754717, b: 0.40445888, a: 1}
 --- !u!114 &1843817635
 MonoBehaviour:
