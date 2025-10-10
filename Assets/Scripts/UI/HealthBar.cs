@@ -1,36 +1,39 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-public class HealthBar : MonoBehaviour
+namespace TowerDefense.UI
 {
-    [SerializeField] private Slider _slider;
-
-    private Camera _targetCamera;
-
-    private void Start()
+    public class HealthBar : MonoBehaviour
     {
-        _targetCamera = Camera.main;
-        ValidateReferences();
-    }
+        [SerializeField] private Slider _slider;
 
-    private void ValidateReferences()
-    {
-        if (_targetCamera == null)
+        private Camera _targetCamera;
+
+        private void Start()
         {
-            Debug.LogError("Main camera is not found. Health bars need a camera to follow");
-            Destroy(gameObject);
+            _targetCamera = Camera.main;
+            ValidateReferences();
         }
-    }
 
-    private void Update()
-    {
-        var cameraPosition = _targetCamera.transform.position;
-        var targetPosition = new Vector3(transform.position.x, cameraPosition.y, cameraPosition.z);
-        transform.LookAt(targetPosition);
-    }
+        private void ValidateReferences()
+        {
+            if (_targetCamera == null)
+            {
+                Debug.LogError("Main camera is not found. Health bars need a camera to follow");
+                Destroy(gameObject);
+            }
+        }
 
-    public void UpdateBarFill(float currentValue, float maxValue)
-    {
-        _slider.value = currentValue / maxValue;
+        private void Update()
+        {
+            var cameraPosition = _targetCamera.transform.position;
+            var targetPosition = new Vector3(transform.position.x, cameraPosition.y, cameraPosition.z);
+            transform.LookAt(targetPosition);
+        }
+
+        public void UpdateBarFill(float currentValue, float maxValue)
+        {
+            _slider.value = currentValue / maxValue;
+        }
     }
 }

@@ -1,5 +1,7 @@
 using TowerDefense.Combat;
-using TowerDefense.Scene;
+using TowerDefense.GameFlow;
+using TowerDefense.Service;
+using TowerDefense.UI;
 using UnityEngine;
 
 namespace TowerDefense.Enemies
@@ -9,6 +11,7 @@ namespace TowerDefense.Enemies
         [SerializeField] private EnemyConfig _enemyConfig;
         [SerializeField] private HealthBar _healthBar;
 
+        protected GameFlowService _gameFlowService;
         protected TeamTag _teamTag;
         protected int _hitPoints;
         protected int _damage;
@@ -32,6 +35,7 @@ namespace TowerDefense.Enemies
 
         protected virtual void Initialize()
         {
+            _gameFlowService = ServiceLocator.GetService<GameFlowService>();
             _teamTag = TeamTag.Enemy;
             SetHitPoints(_enemyConfig.HitPoints);
             _damage = _enemyConfig.Damage;

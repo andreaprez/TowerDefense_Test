@@ -1,4 +1,6 @@
 using System.Collections.Generic;
+using TowerDefense.GameFlow;
+using TowerDefense.Service;
 using UnityEngine;
 
 namespace TowerDefense.Spawn
@@ -8,11 +10,13 @@ namespace TowerDefense.Spawn
         [SerializeField] private SpawnConfig _spawnConfig;
         [SerializeField] private List<Transform> _spawnPoints;
 
+        private GameFlowService _gameFlowService;
         private float _elapsedTime;
 
         private void Start()
         {
             ValidateReferences();
+            Initialize();
         }
 
         private void ValidateReferences()
@@ -24,9 +28,15 @@ namespace TowerDefense.Spawn
                 Debug.LogError("List of spawn points is empty. Please reference at least one SpawnPoint in the Spawner");
         }
 
+        private void Initialize()
+        {
+            _gameFlowService = ServiceLocator.GetService<GameFlowService>();
+        }
+
         private void Update()
         {
-            if (_spawnConfig == null || _spawnPoints == null || _spawnPoints.Count == 0)
+            if (_gameFlowService.GameState != GameState.Gameplay ||
+                _spawnConfig == null || _spawnPoints == null || _spawnPoints.Count == 0)
                 return;
 
             if (_elapsedTime < _spawnConfig.SpawnFrequencyInSeconds)

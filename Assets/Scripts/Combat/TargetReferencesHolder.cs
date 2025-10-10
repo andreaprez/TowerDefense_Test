@@ -1,6 +1,6 @@
 ﻿using UnityEngine;
 
-namespace TowerDefense.Scene
+namespace TowerDefense.Combat
 {
     public class TargetReferencesHolder : MonoBehaviour
     {

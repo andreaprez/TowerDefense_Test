@@ -1,4 +1,8 @@
 using TowerDefense.Combat;
+using TowerDefense.GameFlow;
+using TowerDefense.Service;
+using TowerDefense.Signals;
+using TowerDefense.UI;
 using UnityEngine;
 
 namespace TowerDefense.Player
@@ -9,6 +13,7 @@ namespace TowerDefense.Player
         [SerializeField] private TeamTag _teamTag;
         [SerializeField] private HealthBar _healthBar;
 
+        private SignalService _signalService;
         private int _hitPoints;
 
         private void Start()
@@ -28,6 +33,7 @@ namespace TowerDefense.Player
 
         private void Initialize()
         {
+            _signalService = ServiceLocator.GetService<SignalService>();
             SetHitPoints(_baseConfig.HitPoints);
         }
 
@@ -36,10 +42,11 @@ namespace TowerDefense.Player
             _hitPoints = value;
             _healthBar.UpdateBarFill(_hitPoints, _baseConfig.HitPoints);
         }
-        
+
         private void Die()
         {
             Destroy(gameObject);
+            _signalService.GetSignal<GameEndedSignal>().Send(false);
         }
 
         public void ApplyDamage(int damagePoints)
