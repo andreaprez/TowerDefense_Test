@@ -38,7 +38,7 @@ namespace TowerDefense.Player
             if (_gameFlowService.GameState != GameState.Gameplay || _turretConfig == null)
                 return;
 
-            if (_elapsedTime < _turretConfig.FireRateInSeconds)
+            if (_elapsedTime < _turretConfig.AttackRateInSeconds)
             {
                 _elapsedTime += Time.deltaTime;
                 return;
