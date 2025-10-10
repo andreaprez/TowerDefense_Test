@@ -1,16 +1,17 @@
-﻿using TowerDefense.Input;
+﻿using TowerDefense.Currency;
+using TowerDefense.Input;
 using TowerDefense.Service;
 using TowerDefense.Signals;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace TowerDefense.Player
 {
     public class TurretSpawnHandler : MonoBehaviour
     {
-        [FormerlySerializedAs("turretPrefabCollection")] [FormerlySerializedAs("_turretCollection")] [SerializeField] private TurretPrefabsCollection turretPrefabsCollection;
+        [SerializeField] private TurretsBuildConfig _turretsBuildConfig;
 
         private SignalService _signalService;
+        private CurrencyService _currencyService;
         private Turret _selectedTurret;
 
         private void Start()
@@ -21,13 +22,20 @@ namespace TowerDefense.Player
         private void Initialize()
         {
             _signalService = ServiceLocator.GetService<SignalService>();
+            _currencyService = ServiceLocator.GetService<CurrencyService>();
             _signalService.GetSignal<ToggledSelectionForRegularTurretSignal>().AddListener(OnToggleSelectionForRegularTurret);
             _signalService.GetSignal<PlacedTurretSignal>().AddListener(OnPlaceTurret);
         }
 
+        private void OnDestroy()
+        {
+            _signalService.GetSignal<ToggledSelectionForRegularTurretSignal>().RemoveListener(OnToggleSelectionForRegularTurret);
+            _signalService.GetSignal<PlacedTurretSignal>().RemoveListener(OnPlaceTurret);
+        }
+
         private void OnToggleSelectionForRegularTurret()
         {
-            _selectedTurret = _selectedTurret == turretPrefabsCollection.RegularTurret ? null : turretPrefabsCollection.RegularTurret;
+            _selectedTurret = _selectedTurret == _turretsBuildConfig.RegularTurretPrefab ? null : _turretsBuildConfig.RegularTurretPrefab;
         }
 
         private void OnPlaceTurret(Vector3 position)
@@ -35,8 +43,12 @@ namespace TowerDefense.Player
             if (_selectedTurret == null)
                 return;
 
+            if (_turretsBuildConfig.TurretCost > _currencyService.Coins)
+                return;
+
             Instantiate(_selectedTurret, position, Quaternion.identity, transform);
-            _selectedTurret = null;
+            _signalService.GetSignal<ToggledSelectionForRegularTurretSignal>().Send();
+            _currencyService.RemoveCoins(_turretsBuildConfig.TurretCost);
         }
     }
 }

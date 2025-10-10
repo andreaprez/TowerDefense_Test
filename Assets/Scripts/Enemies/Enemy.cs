@@ -1,4 +1,5 @@
 using TowerDefense.Combat;
+using TowerDefense.Currency;
 using TowerDefense.GameFlow;
 using TowerDefense.Service;
 using TowerDefense.UI;
@@ -9,9 +10,10 @@ namespace TowerDefense.Enemies
     public abstract class Enemy : MonoBehaviour, IDamageReceiver
     {
         [SerializeField] private EnemyConfig _enemyConfig;
-        [SerializeField] private HealthBar _healthBar;
+        [SerializeField] private HealthBarDisplay _healthBar;
 
         protected GameFlowService _gameFlowService;
+        private CurrencyService _currencyService;
         protected TeamTag _teamTag;
         protected int _hitPoints;
         protected int _damage;
@@ -26,6 +28,7 @@ namespace TowerDefense.Enemies
         protected virtual void Initialize()
         {
             _gameFlowService = ServiceLocator.GetService<GameFlowService>();
+            _currencyService = ServiceLocator.GetService<CurrencyService>();
             _teamTag = TeamTag.Enemy;
             SetHitPoints(_enemyConfig.HitPoints);
             _damage = _enemyConfig.Damage;
@@ -41,6 +44,7 @@ namespace TowerDefense.Enemies
 
         protected virtual void Die()
         {
+            _currencyService.AddCoins(_enemyConfig.DeathReward);
             Destroy(gameObject);
         }
 

@@ -9,8 +9,9 @@ MonoBehaviour:
   m_GameObject: {fileID: 0}
   m_Enabled: 1
   m_EditorHideFlags: 0
-  m_Script: {fileID: 11500000, guid: b3e9dc15f45d47b9b14dcfc22119eaaa, type: 3}
-  m_Name: TurretPrefabsCollection
+  m_Script: {fileID: 11500000, guid: 4bcb9be2eea60d4438b6d4a4c0882eae, type: 3}
+  m_Name: TurretsBuildConfig
   m_EditorClassIdentifier: 
-  RegularTurret: {fileID: 7123579300304878520, guid: ad95cf0532fb840edb99302196037be4,
+  TurretCost: 5
+  RegularTurretPrefab: {fileID: 7123579300304878520, guid: ad95cf0532fb840edb99302196037be4,
     type: 3}

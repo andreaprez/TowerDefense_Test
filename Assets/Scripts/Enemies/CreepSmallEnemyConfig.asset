@@ -15,3 +15,4 @@ MonoBehaviour:
   HitPoints: 10
   Damage: 1
   Speed: 4
+  DeathReward: 1

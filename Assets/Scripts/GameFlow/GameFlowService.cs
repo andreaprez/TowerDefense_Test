@@ -18,13 +18,6 @@ namespace TowerDefense.GameFlow
             _signalService.GetSignal<GameEndedSignal>().AddListener(OnGameEnded);
         }
 
-        public void Dispose()
-        {
-            _signalService.GetSignal<GameStartedSignal>().RemoveListener(OnGameStarted);
-            _signalService.GetSignal<GameEndedSignal>().RemoveListener(OnGameEnded);
-            _signalService = null;
-        }
-
         private void OnGameStarted()
         {
             StartGame();

@@ -8,5 +8,6 @@ namespace TowerDefense.Enemies
         public int HitPoints;
         public int Damage;
         public float Speed;
+        public int DeathReward;
     }
 }
