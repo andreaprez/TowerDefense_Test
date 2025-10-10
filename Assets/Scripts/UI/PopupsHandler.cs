@@ -43,7 +43,7 @@ namespace TowerDefense.UI
         public bool TryGetView<T>(out IPopupView popupView)
         {
             var viewType = typeof(T);
-            
+
             if (TryGetInstantiatedView(viewType, out popupView))
             {
                 return true;
@@ -84,6 +84,7 @@ namespace TowerDefense.UI
                 return true;
             }
 
+            Debug.LogError($"PopupsHandler couldn't instantiate view of type {viewType}. It was not found in popups list");
             popupView = default;
             return false;
         }

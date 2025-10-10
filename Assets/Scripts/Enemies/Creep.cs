@@ -8,17 +8,16 @@ namespace TowerDefense.Enemies
     {
         private void Update()
         {
-            if (_gameFlowService.GameState != GameState.Gameplay)
+            if (_gameFlowService.GameState != GameState.Gameplay || !IsAlive())
                 return;
 
-            if (_hitPoints > 0)
-                Move();
+            Move();
         }
 
-        protected override void Move()
+        private void Move()
         {
             transform.LookAt(_targetPosition, Vector3.up);
-        
+
             var direction = _targetPosition - transform.position;
             transform.position += direction.normalized * (_speed * Time.deltaTime);
         }

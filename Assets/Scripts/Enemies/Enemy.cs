@@ -20,17 +20,7 @@ namespace TowerDefense.Enemies
 
         private void Start()
         {
-            ValidateReferences();
             Initialize();
-        }
-
-        private void ValidateReferences()
-        {
-            if (_enemyConfig == null)
-            {
-                Debug.LogError($"Enemy configuration is null. Please reference an EnemyConfig in {gameObject.name} prefab");
-                Destroy(this);
-            }
         }
 
         protected virtual void Initialize()
@@ -49,11 +39,14 @@ namespace TowerDefense.Enemies
             _healthBar.UpdateBarFill(_hitPoints, _enemyConfig.HitPoints);
         }
 
-        protected abstract void Move();
-
         protected virtual void Die()
         {
             Destroy(gameObject);
+        }
+
+        protected bool IsAlive()
+        {
+            return _hitPoints > 0;
         }
 
         public void ApplyDamage(int damagePoints)

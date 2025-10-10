@@ -18,17 +18,7 @@ namespace TowerDefense.Player
 
         private void Start()
         {
-            ValidateReferences();
             Initialize();
-        }
-
-        private void ValidateReferences()
-        {
-            if (_baseConfig == null)
-            {
-                Debug.LogError($"Player Base configuration is null. Please reference a PlayerBaseConfig in PlayerBase prefab");
-                Destroy(this);
-            }
         }
 
         private void Initialize()
