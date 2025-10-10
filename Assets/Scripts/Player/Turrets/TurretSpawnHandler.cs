@@ -3,13 +3,12 @@ using TowerDefense.Input;
 using TowerDefense.Service;
 using TowerDefense.Signals;
 using UnityEngine;
-using UnityEngine.Serialization;
 
 namespace TowerDefense.Player
 {
     public class TurretSpawnHandler : MonoBehaviour
     {
-        [FormerlySerializedAs("turretPrefabCollection")] [FormerlySerializedAs("_turretCollection")] [SerializeField] private TurretPrefabsCollection turretPrefabsCollection;
+        [SerializeField] private TurretsBuildConfig _turretsBuildConfig;
 
         private SignalService _signalService;
         private Turret _selectedTurret;
@@ -34,7 +33,7 @@ namespace TowerDefense.Player
 
         private void OnToggleSelectionForRegularTurret()
         {
-            _selectedTurret = _selectedTurret == turretPrefabsCollection.RegularTurret ? null : turretPrefabsCollection.RegularTurret;
+            _selectedTurret = _selectedTurret == _turretsBuildConfig.RegularTurretPrefab ? null : _turretsBuildConfig.RegularTurretPrefab;
         }
 
         private void OnPlaceTurret(Vector3 position)
