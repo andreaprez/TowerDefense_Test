@@ -29,7 +29,7 @@ namespace TowerDefense.Input
             if (UnityEngine.Input.GetKeyUp(KeyCode.Alpha1))
                 ToggleSelectionForRegularTurret();
 
-            if (UnityEngine.Input.GetMouseButtonUp(0))
+            if (UnityEngine.Input.GetMouseButtonDown(0))
                 PlaceTurret();
         }
 

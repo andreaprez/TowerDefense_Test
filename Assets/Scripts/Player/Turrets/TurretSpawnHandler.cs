@@ -1,4 +1,5 @@
-﻿using TowerDefense.Input;
+﻿using System;
+using TowerDefense.Input;
 using TowerDefense.Service;
 using TowerDefense.Signals;
 using UnityEngine;
@@ -25,6 +26,12 @@ namespace TowerDefense.Player
             _signalService.GetSignal<PlacedTurretSignal>().AddListener(OnPlaceTurret);
         }
 
+        private void OnDestroy()
+        {
+            _signalService.GetSignal<ToggledSelectionForRegularTurretSignal>().RemoveListener(OnToggleSelectionForRegularTurret);
+            _signalService.GetSignal<PlacedTurretSignal>().RemoveListener(OnPlaceTurret);
+        }
+
         private void OnToggleSelectionForRegularTurret()
         {
             _selectedTurret = _selectedTurret == turretPrefabsCollection.RegularTurret ? null : turretPrefabsCollection.RegularTurret;
@@ -36,7 +43,7 @@ namespace TowerDefense.Player
                 return;
 
             Instantiate(_selectedTurret, position, Quaternion.identity, transform);
-            _selectedTurret = null;
+            _signalService.GetSignal<ToggledSelectionForRegularTurretSignal>().Send();
         }
     }
 }

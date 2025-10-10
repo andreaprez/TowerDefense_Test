@@ -13,11 +13,6 @@ namespace TowerDefense.Signals
             _signals = new Dictionary<Type, ISignal>();
         }
 
-        public void Dispose()
-        {
-            _signals = null;
-        }
-
         public T GetSignal<T>() where T : ISignal, new()
         {
             var signalType = typeof(T);
