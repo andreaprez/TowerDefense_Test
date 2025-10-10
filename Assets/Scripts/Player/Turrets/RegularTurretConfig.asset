@@ -10,7 +10,10 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f4764fd1eb6caee44835befccb3e6307, type: 3}
-  m_Name: BasicTurretConfig
+  m_Name: RegularTurretConfig
   m_EditorClassIdentifier: 
+  Range: 8
   FireRateInSeconds: 2
-  Damage: 3
+  BulletSpeed: 5
+  BulletLifeTime: 8
+  Damage: 8
