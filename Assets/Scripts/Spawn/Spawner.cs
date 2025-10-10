@@ -15,17 +15,7 @@ namespace TowerDefense.Spawn
 
         private void Start()
         {
-            ValidateReferences();
             Initialize();
-        }
-
-        private void ValidateReferences()
-        {
-            if (_spawnConfig == null)
-                Debug.LogError("Spawn configuration is null. Please reference a SpawnConfig in the Spawner");
-
-            if (_spawnPoints == null || _spawnPoints.Count == 0)
-                Debug.LogError("List of spawn points is empty. Please reference at least one SpawnPoint in the Spawner");
         }
 
         private void Initialize()
@@ -57,7 +47,7 @@ namespace TowerDefense.Spawn
                 for (var i = 0; i < _spawnConfig.SpawnQuantity; i++)
                 {
                     var prefabIndex = Random.Range(0, _spawnConfig.PrefabsToSpawn.Count);
-                    Instantiate(_spawnConfig.PrefabsToSpawn[prefabIndex], _spawnPoints[spawnPointIndex].position, Quaternion.identity);
+                    Instantiate(_spawnConfig.PrefabsToSpawn[prefabIndex], _spawnPoints[spawnPointIndex].position, Quaternion.identity, transform);
                 }
             }
             else
@@ -66,7 +56,7 @@ namespace TowerDefense.Spawn
                 {
                     var spawnPointIndex = Random.Range(0, _spawnPoints.Count);
                     var prefabIndex = Random.Range(0, _spawnConfig.PrefabsToSpawn.Count);
-                    Instantiate(_spawnConfig.PrefabsToSpawn[prefabIndex], _spawnPoints[spawnPointIndex].position, Quaternion.identity);
+                    Instantiate(_spawnConfig.PrefabsToSpawn[prefabIndex], _spawnPoints[spawnPointIndex].position, Quaternion.identity, transform);
                 }
             }
         }

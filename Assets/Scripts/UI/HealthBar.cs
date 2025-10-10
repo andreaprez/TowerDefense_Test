@@ -12,16 +12,6 @@ namespace TowerDefense.UI
         private void Start()
         {
             _targetCamera = Camera.main;
-            ValidateReferences();
-        }
-
-        private void ValidateReferences()
-        {
-            if (_targetCamera == null)
-            {
-                Debug.LogError("Main camera is not found. Health bars need a camera to follow");
-                Destroy(gameObject);
-            }
         }
 
         private void Update()
