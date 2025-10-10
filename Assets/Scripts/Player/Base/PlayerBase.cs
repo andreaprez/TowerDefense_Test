@@ -11,7 +11,7 @@ namespace TowerDefense.Player
     {
         [SerializeField] private PlayerBaseConfig _baseConfig;
         [SerializeField] private TeamTag _teamTag;
-        [SerializeField] private HealthBar _healthBar;
+        [SerializeField] private HealthBarDisplay _healthBar;
 
         private SignalService _signalService;
         private int _hitPoints;

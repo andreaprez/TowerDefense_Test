@@ -10,7 +10,7 @@ namespace TowerDefense.Enemies
     public abstract class Enemy : MonoBehaviour, IDamageReceiver
     {
         [SerializeField] private EnemyConfig _enemyConfig;
-        [SerializeField] private HealthBar _healthBar;
+        [SerializeField] private HealthBarDisplay _healthBar;
 
         protected GameFlowService _gameFlowService;
         private CurrencyService _currencyService;
