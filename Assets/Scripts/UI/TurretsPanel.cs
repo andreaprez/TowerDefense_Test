@@ -1,19 +1,19 @@
-using System;
 using TowerDefense.Input;
+using TowerDefense.Player;
 using TowerDefense.Service;
 using TowerDefense.Signals;
 using UnityEngine;
-using UnityEngine.UI;
 
 namespace TowerDefense.UI
 {
     public class TurretsPanel : MonoBehaviour
     {
-        [SerializeField] private Button _regularTurretButton;
+        [SerializeField] private TurretsBuildConfig _turretsBuildConfig;
+        [SerializeField] private TurretButton _regularTurretButton;
         [SerializeField] private Color _selectedColor;
 
         private SignalService _signalService;
-        private Button _selectedTurret;
+        private TurretButton _selectedTurret;
 
         private void Start()
         {
@@ -23,15 +23,19 @@ namespace TowerDefense.UI
         private void Initialize()
         {
             _signalService = ServiceLocator.GetService<SignalService>();
+            SetupRegularTurretButton();
+        }
 
-            _regularTurretButton.onClick.AddListener(OnRegularTurretButtonPressed);
+        private void SetupRegularTurretButton()
+        {
+            _regularTurretButton.SetCostText(_turretsBuildConfig.TurretCost.ToString());
+            _regularTurretButton.AddListener(OnRegularTurretButtonPressed);
             _signalService.GetSignal<ToggledSelectionForRegularTurretSignal>().AddListener(OnToggleSelectionForRegularTurret);
-
         }
 
         private void OnDestroy()
         {
-            _regularTurretButton.onClick.RemoveListener(OnRegularTurretButtonPressed);
+            _regularTurretButton.RemoveListener(OnRegularTurretButtonPressed);
         }
 
         private void OnRegularTurretButtonPressed()
@@ -42,7 +46,7 @@ namespace TowerDefense.UI
         private void OnToggleSelectionForRegularTurret()
         {
             _selectedTurret = _selectedTurret == _regularTurretButton ? null : _regularTurretButton;
-            _regularTurretButton.image.color = _selectedTurret == _regularTurretButton ? _selectedColor : Color.white;
+            _regularTurretButton.SetImageColor(_selectedTurret == _regularTurretButton ? _selectedColor : Color.white);
         }
     }
 }

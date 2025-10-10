@@ -90,6 +90,7 @@ GameObject:
   - component: {fileID: 1126792413688842201}
   - component: {fileID: 5269931314598846334}
   - component: {fileID: 7668129033375914862}
+  - component: {fileID: 3672179130763161907}
   m_Layer: 0
   m_Name: TurretButton
   m_TagString: Untagged
@@ -202,6 +203,20 @@ MonoBehaviour:
   m_FillOrigin: 0
   m_UseSpriteMesh: 0
   m_PixelsPerUnitMultiplier: 1
+--- !u!114 &3672179130763161907
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1378341696037169072}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: bacc4e02dfa84f19a645096c638a2869, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  _button: {fileID: 5269931314598846334}
+  _costText: {fileID: 7979840895432519596}
 --- !u!1 &2093417868181491888
 GameObject:
   m_ObjectHideFlags: 0
