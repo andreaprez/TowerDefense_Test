@@ -13,7 +13,7 @@ MonoBehaviour:
   m_Name: RegularTurretConfig
   m_EditorClassIdentifier: 
   Range: 10
-  AttackRateInSeconds: 2
+  AttackRateInSeconds: 1
   AttackLifeTime: 8
-  BulletSpeed: 5
+  BulletSpeed: 6
   Damage: 4
