@@ -77,9 +77,12 @@ namespace TowerDefense.Player
         {
             foreach (var turret in _spawnedTurrets)
             {
-                Destroy(turret);
+                Destroy(turret.gameObject);
             }
             _spawnedTurrets.Clear();
+
+            if (_selectedTurret)
+                _selectedTurret = null;
         }
     }
 }

@@ -24,6 +24,7 @@ namespace TowerDefense.Player
         {
             _signalService = ServiceLocator.GetService<SignalService>();
             _signalService.GetSignal<ToggledSelectionForTurretSignal>().AddListener(OnToggleSelectionForTurret);
+            _signalService.GetSignal<GameRestartedSignal>().AddListener(OnGameRestarted);
             SetupRegularTurretButton();
             SetupFreezeTurretButton();
         }
@@ -73,6 +74,15 @@ namespace TowerDefense.Player
             }
             _selectedTurret = _selectedTurret == turretButton ? null : turretButton;
             _selectedTurret?.SetImageColor(_selectedTurret == turretButton ? _selectedColor : Color.white);
+        }
+
+        private void OnGameRestarted()
+        {
+            if (_selectedTurret)
+            {
+                _selectedTurret.SetImageColor(Color.white);
+                _selectedTurret = null;
+            }
         }
     }
 }

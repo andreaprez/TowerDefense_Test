@@ -7,11 +7,13 @@ namespace TowerDefense.UI
     {
         public virtual void Show()
         {
+            gameObject.SetActive(true);
             OnShown?.Invoke();
         }
 
         public virtual void Hide()
         {
+            gameObject.SetActive(false);
             OnHidden?.Invoke();
         }
 

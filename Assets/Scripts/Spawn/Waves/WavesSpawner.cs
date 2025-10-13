@@ -84,9 +84,12 @@ namespace TowerDefense.Spawn
         {
             foreach (var enemy in _spawnedEnemies)
             {
-                Destroy(enemy);
+                Destroy(enemy.gameObject);
             }
             _spawnedEnemies.Clear();
+
+            _currentWave = 0;
+            SpawnWave();
         }
     }
 }
