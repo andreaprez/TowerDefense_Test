@@ -16,7 +16,7 @@ namespace TowerDefense.Spawn
 
         private SignalService _signalService;
         private int _currentWave;
-        private int _enemyCounter;
+        private List<Enemy> _spawnedEnemies;
 
         private void Start()
         {
@@ -28,17 +28,19 @@ namespace TowerDefense.Spawn
         {
             _signalService = ServiceLocator.GetService<SignalService>();
             _signalService.GetSignal<EnemyDiedSignal>().AddListener(OnEnemyDied);
+            _signalService.GetSignal<LevelRestartedSignal>().AddListener(OnLevelRestarted);
         }
 
         private void OnDestroy()
         {
             _signalService.GetSignal<EnemyDiedSignal>().RemoveListener(OnEnemyDied);
+            _signalService.GetSignal<LevelRestartedSignal>().RemoveListener(OnLevelRestarted);
         }
 
         private void SpawnWave()
         {
             var currentWaveConfig = _spawnConfig.Waves[_currentWave];
-            _enemyCounter = 0;
+            _spawnedEnemies = new List<Enemy>();
 
             foreach (var enemyGroup in currentWaveConfig.EnemyGroups)
             {
@@ -49,16 +51,16 @@ namespace TowerDefense.Spawn
                     var spawnPointOffsetVector = new Vector3(spawnPointOffsetX, 0f, spawnPointOffsetZ);
                     var spawnPointIndex = Random.Range(0, _spawnPoints.Count);
                     var spawnPosition = _spawnPoints[spawnPointIndex].position + spawnPointOffsetVector;
-                    Instantiate(enemyGroup.Prefab, spawnPosition, Quaternion.identity, transform);
-                    _enemyCounter++;
+                    var newEnemy = Instantiate(enemyGroup.Prefab, spawnPosition, Quaternion.identity, transform);
+                    _spawnedEnemies.Add(newEnemy);
                 }
             }
         }
 
-        private void OnEnemyDied()
+        private void OnEnemyDied(Enemy enemy)
         {
-            _enemyCounter--;
-            if (_enemyCounter > 0)
+            _spawnedEnemies.Remove(enemy);
+            if (_spawnedEnemies.Count > 0)
                 return;
 
             if (_currentWave < _spawnConfig.Waves.Count - 1)
@@ -76,6 +78,15 @@ namespace TowerDefense.Spawn
         private void TriggerGameWin()
         {
             _signalService.GetSignal<GameEndedSignal>().Send(true);
+        }
+
+        private void OnLevelRestarted()
+        {
+            foreach (var enemy in _spawnedEnemies)
+            {
+                Destroy(enemy);
+            }
+            _spawnedEnemies.Clear();
         }
     }
 }

@@ -1,4 +1,5 @@
-﻿using TowerDefense.Service;
+﻿using TowerDefense.Scene;
+using TowerDefense.Service;
 using TowerDefense.Signals;
 using TowerDefense.UI;
 
@@ -6,13 +7,18 @@ namespace TowerDefense.GameFlow.EndgamePopup
 {
     public class EndgamePopupPresenter
     {
+        private readonly SceneLoadingService _sceneLoadingService;
+        private readonly SignalService _signalService;
+
         private EndgamePopupView _view;
         private EndgamePopupModel _model;
 
         public EndgamePopupPresenter()
         {
-            ServiceLocator.GetService<SignalService>()
-                .GetSignal<ShowEndgamePopupSignal>().AddListener(OnShowPopup);
+            _sceneLoadingService = ServiceLocator.GetService<SceneLoadingService>();
+            _signalService = ServiceLocator.GetService<SignalService>();
+
+            _signalService.GetSignal<ShowEndgamePopupSignal>().AddListener(OnShowPopup);
         }
 
         private void OnShowPopup(bool isWin)
@@ -64,14 +70,16 @@ namespace TowerDefense.GameFlow.EndgamePopup
             _view.OnHidden -= OnPopupHidden;
         }
 
-        private void OnMenuButtonPressed()
-        {
-            //TODO
-        }
-
         private void OnRestartButtonPressed()
         {
-            //TODO
+            _view.Hide();
+            _signalService.GetSignal<LevelRestartedSignal>().Send();
+        }
+
+        private void OnMenuButtonPressed()
+        {
+            _view.Hide();
+            _sceneLoadingService.LoadStartMenuScene();
         }
 
         private void OnPopupHidden()

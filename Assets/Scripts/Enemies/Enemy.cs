@@ -50,8 +50,8 @@ namespace TowerDefense.Enemies
 
         protected virtual void Die()
         {
-            _signalService.GetSignal<EnemyDiedSignal>().Send();
             _currencyService.AddCoins(_enemyConfig.DeathReward);
+            _signalService.GetSignal<EnemyDiedSignal>().Send(this);
             Destroy(gameObject);
         }
 
