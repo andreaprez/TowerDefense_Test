@@ -4,7 +4,7 @@ using TowerDefense.Service;
 using TowerDefense.Signals;
 using UnityEngine;
 
-namespace TowerDefense.UI
+namespace TowerDefense.Currency
 {
     public class CoinsDisplay : MonoBehaviour
     {

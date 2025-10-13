@@ -1,7 +1,7 @@
 using UnityEngine;
 using UnityEngine.UI;
 
-namespace TowerDefense.UI
+namespace TowerDefense.Combat
 {
     public class HealthBarDisplay : MonoBehaviour
     {

@@ -4,38 +4,41 @@ using UnityEditor;
 using UnityEngine;
 using UnityEngine.UI;
 
-public class StartMenuView : MonoBehaviour
+namespace TowerDefense.UI
 {
-    [SerializeField] private Button _playButton;
-    [SerializeField] private Button _quitButton;
-
-    private SceneLoadingService _sceneLoadingService;
-
-    private void Start()
+    public class StartMenuView : MonoBehaviour
     {
-        _sceneLoadingService = ServiceLocator.GetService<SceneLoadingService>();
+        [SerializeField] private Button _playButton;
+        [SerializeField] private Button _quitButton;
 
-        _playButton.onClick.AddListener(OnPlayButtonPressed);
-        _quitButton.onClick.AddListener(OnQuitButtonPressed);
-    }
+        private SceneLoadingService _sceneLoadingService;
 
-    private void OnDestroy()
-    {
-        _playButton.onClick.RemoveListener(OnPlayButtonPressed);
-        _quitButton.onClick.RemoveListener(OnQuitButtonPressed);
-    }
+        private void Start()
+        {
+            _sceneLoadingService = ServiceLocator.GetService<SceneLoadingService>();
 
-    private void OnPlayButtonPressed()
-    {
-        _sceneLoadingService.LoadGameplayScene();
-    }
+            _playButton.onClick.AddListener(OnPlayButtonPressed);
+            _quitButton.onClick.AddListener(OnQuitButtonPressed);
+        }
 
-    private void OnQuitButtonPressed()
-    {
+        private void OnDestroy()
+        {
+            _playButton.onClick.RemoveListener(OnPlayButtonPressed);
+            _quitButton.onClick.RemoveListener(OnQuitButtonPressed);
+        }
+
+        private void OnPlayButtonPressed()
+        {
+            _sceneLoadingService.LoadGameplayScene();
+        }
+
+        private void OnQuitButtonPressed()
+        {
 #if UNITY_EDITOR
-        EditorApplication.isPlaying = false;
+            EditorApplication.isPlaying = false;
 #else
         Application.Quit();
 #endif
+        }
     }
 }
