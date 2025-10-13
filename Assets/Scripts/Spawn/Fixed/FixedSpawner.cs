@@ -5,9 +5,9 @@ using UnityEngine;
 
 namespace TowerDefense.Spawn
 {
-    public class Spawner : MonoBehaviour
+    public class FixedSpawner : MonoBehaviour
     {
-        [SerializeField] private SpawnConfig _spawnConfig;
+        [SerializeField] private FixedSpawnConfig _spawnConfig;
         [SerializeField] private List<Transform> _spawnPoints;
 
         private GameFlowService _gameFlowService;
