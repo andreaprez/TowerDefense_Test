@@ -430,6 +430,7 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   _enemyConfig: {fileID: 11400000, guid: b85195539c88fb347995ef1bd984234b, type: 2}
   _healthBar: {fileID: 6189124392552950455}
+  _enemyType: 1
 --- !u!1 &7641877310818575618
 GameObject:
   m_ObjectHideFlags: 0
@@ -536,6 +537,11 @@ PrefabInstance:
     - target: {fileID: 3516003914999626391, guid: 286349e36d5e3f6458a97664ffcca175,
         type: 3}
       propertyPath: m_AnchorMax.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 3516003914999626391, guid: 286349e36d5e3f6458a97664ffcca175,
+        type: 3}
+      propertyPath: m_AnchorMin.x
       value: 0
       objectReference: {fileID: 0}
     - target: {fileID: 6810935442502790937, guid: 286349e36d5e3f6458a97664ffcca175,

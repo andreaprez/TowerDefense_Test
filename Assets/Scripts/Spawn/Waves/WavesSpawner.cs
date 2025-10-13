@@ -3,6 +3,7 @@ using TowerDefense.Enemies;
 using TowerDefense.GameFlow;
 using TowerDefense.Service;
 using TowerDefense.Signals;
+using TowerDefense.Utils;
 using UnityEngine;
 using Random = UnityEngine.Random;
 
@@ -51,7 +52,24 @@ namespace TowerDefense.Spawn
                     var spawnPointOffsetVector = new Vector3(spawnPointOffsetX, 0f, spawnPointOffsetZ);
                     var spawnPointIndex = Random.Range(0, _spawnPoints.Count);
                     var spawnPosition = _spawnPoints[spawnPointIndex].position + spawnPointOffsetVector;
-                    var newEnemy = Instantiate(enemyGroup.Prefab, spawnPosition, Quaternion.identity, transform);
+
+                    GameObject newEnemyObject = null;
+                    switch (enemyGroup.Prefab.GetEnemyType())
+                    {
+                        case EnemyType.SmallCreep:
+                            newEnemyObject = PoolHandler.Instance.SmallCreepsPool.Get();
+                            break;
+                        case EnemyType.BigCreep:
+                            newEnemyObject = PoolHandler.Instance.BigCreepsPool.Get();
+                            break;
+                    }
+                    if (newEnemyObject == null)
+                        continue;
+
+                    newEnemyObject.transform.position = spawnPosition;
+                    newEnemyObject.transform.rotation = Quaternion.identity;
+                    var newEnemy = newEnemyObject.GetComponent<Enemy>();
+                    newEnemy.Initialize();
                     _spawnedEnemies.Add(newEnemy);
                 }
             }
@@ -84,7 +102,15 @@ namespace TowerDefense.Spawn
         {
             foreach (var enemy in _spawnedEnemies)
             {
-                Destroy(enemy.gameObject);
+                switch (enemy.GetEnemyType())
+                {
+                    case EnemyType.SmallCreep:
+                        PoolHandler.Instance.SmallCreepsPool.Release(enemy.gameObject);
+                        break;
+                    case EnemyType.BigCreep:
+                        PoolHandler.Instance.BigCreepsPool.Release(enemy.gameObject);
+                        break;
+                }
             }
             _spawnedEnemies.Clear();
 
