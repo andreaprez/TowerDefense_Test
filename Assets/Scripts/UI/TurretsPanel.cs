@@ -24,6 +24,7 @@ namespace TowerDefense.UI
         private void Initialize()
         {
             _signalService = ServiceLocator.GetService<SignalService>();
+            _signalService.GetSignal<ToggledSelectionForTurretSignal>().AddListener(OnToggleSelectionForTurret);
             SetupRegularTurretButton();
             SetupFreezeTurretButton();
         }
@@ -32,42 +33,47 @@ namespace TowerDefense.UI
         {
             _regularTurretButton.SetCostText(_turretsBuildConfig.TurretCost.ToString());
             _regularTurretButton.AddListener(OnRegularTurretButtonPressed);
-            _signalService.GetSignal<ToggledSelectionForRegularTurretSignal>().AddListener(OnToggleSelectionForRegularTurret);
         }
 
         private void SetupFreezeTurretButton()
         {
             _freezeTurretButton.SetCostText(_turretsBuildConfig.TurretCost.ToString());
             _freezeTurretButton.AddListener(OnFreezeTurretButtonPressed);
-            _signalService.GetSignal<ToggledSelectionForFreezeTurretSignal>().AddListener(OnToggleSelectionForFreezeTurret);
         }
 
         private void OnDestroy()
         {
+            _signalService.GetSignal<ToggledSelectionForTurretSignal>().RemoveListener(OnToggleSelectionForTurret);
             _regularTurretButton.RemoveListener(OnRegularTurretButtonPressed);
             _freezeTurretButton.RemoveListener(OnFreezeTurretButtonPressed);
         }
 
         private void OnRegularTurretButtonPressed()
         {
-            _signalService.GetSignal<ToggledSelectionForRegularTurretSignal>().Send();
+            _signalService.GetSignal<ToggledSelectionForTurretSignal>().Send(TurretType.Regular);
         }
 
         private void OnFreezeTurretButtonPressed()
         {
-            _signalService.GetSignal<ToggledSelectionForFreezeTurretSignal>().Send();
+            _signalService.GetSignal<ToggledSelectionForTurretSignal>().Send(TurretType.Freeze);
         }
 
-        private void OnToggleSelectionForRegularTurret()
+        private void OnToggleSelectionForTurret(TurretType turretType)
         {
-            _selectedTurret = _selectedTurret == _regularTurretButton ? null : _regularTurretButton;
-            _regularTurretButton.SetImageColor(_selectedTurret == _regularTurretButton ? _selectedColor : Color.white);
-        }
+            _selectedTurret?.SetImageColor(Color.white);
 
-        private void OnToggleSelectionForFreezeTurret()
-        {
-            _selectedTurret = _selectedTurret == _freezeTurretButton ? null : _freezeTurretButton;
-            _freezeTurretButton.SetImageColor(_selectedTurret == _freezeTurretButton ? _selectedColor : Color.white);
+            TurretButton turretButton = null;
+            switch (turretType)
+            {
+                case TurretType.Regular:
+                    turretButton = _regularTurretButton;
+                    break;
+                case TurretType.Freeze:
+                    turretButton = _freezeTurretButton;
+                    break;
+            }
+            _selectedTurret = _selectedTurret == turretButton ? null : turretButton;
+            _selectedTurret?.SetImageColor(_selectedTurret == turretButton ? _selectedColor : Color.white);
         }
     }
 }

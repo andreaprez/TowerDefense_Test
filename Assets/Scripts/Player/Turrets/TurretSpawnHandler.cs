@@ -13,6 +13,7 @@ namespace TowerDefense.Player
         private SignalService _signalService;
         private CurrencyService _currencyService;
         private Turret _selectedTurret;
+        private TurretType _selectedTurretType;
 
         private void Start()
         {
@@ -23,29 +24,33 @@ namespace TowerDefense.Player
         {
             _signalService = ServiceLocator.GetService<SignalService>();
             _currencyService = ServiceLocator.GetService<CurrencyService>();
-            _signalService.GetSignal<ToggledSelectionForRegularTurretSignal>().AddListener(OnToggleSelectionForRegularTurret);
-            _signalService.GetSignal<ToggledSelectionForFreezeTurretSignal>().AddListener(OnToggleSelectionForFreezeTurret);
-            _signalService.GetSignal<PlacedTurretSignal>().AddListener(OnPlaceTurret);
+            _signalService.GetSignal<ToggledSelectionForTurretSignal>().AddListener(OnToggleSelectionForTurret);
+            _signalService.GetSignal<AttemptedTurretPlacementSignal>().AddListener(OnTurretPlacementAttempt);
         }
 
         private void OnDestroy()
         {
-            _signalService.GetSignal<ToggledSelectionForRegularTurretSignal>().RemoveListener(OnToggleSelectionForRegularTurret);
-            _signalService.GetSignal<ToggledSelectionForFreezeTurretSignal>().RemoveListener(OnToggleSelectionForFreezeTurret);
-            _signalService.GetSignal<PlacedTurretSignal>().RemoveListener(OnPlaceTurret);
+            _signalService.GetSignal<ToggledSelectionForTurretSignal>().RemoveListener(OnToggleSelectionForTurret);
+            _signalService.GetSignal<AttemptedTurretPlacementSignal>().RemoveListener(OnTurretPlacementAttempt);
         }
 
-        private void OnToggleSelectionForRegularTurret()
+        private void OnToggleSelectionForTurret(TurretType turretType)
         {
-            _selectedTurret = _selectedTurret == _turretsBuildConfig.RegularTurretPrefab ? null : _turretsBuildConfig.RegularTurretPrefab;
+            Turret turretPrefab = null;
+            switch (turretType)
+            {
+                case TurretType.Regular:
+                    turretPrefab = _turretsBuildConfig.RegularTurretPrefab;
+                    break;
+                case TurretType.Freeze:
+                    turretPrefab = _turretsBuildConfig.FreezeTurretPrefab;
+                    break;
+            }
+            _selectedTurret = _selectedTurret == turretPrefab ? null : turretPrefab;
+            _selectedTurretType = turretType;
         }
 
-        private void OnToggleSelectionForFreezeTurret()
-        {
-            _selectedTurret = _selectedTurret == _turretsBuildConfig.FreezeTurretPrefab ? null : _turretsBuildConfig.FreezeTurretPrefab;
-        }
-
-        private void OnPlaceTurret(Vector3 position)
+        private void OnTurretPlacementAttempt(Vector3 position)
         {
             if (_selectedTurret == null)
                 return;
@@ -54,7 +59,7 @@ namespace TowerDefense.Player
                 return;
 
             Instantiate(_selectedTurret, position, Quaternion.identity, transform);
-            _signalService.GetSignal<ToggledSelectionForRegularTurretSignal>().Send();
+            _signalService.GetSignal<ToggledSelectionForTurretSignal>().Send(_selectedTurretType);
             _currencyService.RemoveCoins(_turretsBuildConfig.TurretCost);
         }
     }

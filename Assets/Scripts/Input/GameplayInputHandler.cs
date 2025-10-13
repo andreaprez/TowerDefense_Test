@@ -1,4 +1,5 @@
 ﻿using TowerDefense.GameFlow;
+using TowerDefense.Player;
 using TowerDefense.Service;
 using TowerDefense.Signals;
 using UnityEngine;
@@ -27,32 +28,27 @@ namespace TowerDefense.Input
                 return;
 
             if (UnityEngine.Input.GetKeyUp(KeyCode.Alpha1))
-                ToggleSelectionForRegularTurret();
+                ToggleSelectionForTurret(TurretType.Regular);
 
             if (UnityEngine.Input.GetKeyUp(KeyCode.Alpha2))
-                ToggleSelectionForFreezeTurret();
+                ToggleSelectionForTurret(TurretType.Freeze);
 
             if (UnityEngine.Input.GetMouseButtonDown(0))
-                PlaceTurret();
+                TryPlaceTurret();
         }
 
-        private void ToggleSelectionForRegularTurret()
+        private void ToggleSelectionForTurret(TurretType turretType)
         {
-            _signalService.GetSignal<ToggledSelectionForRegularTurretSignal>().Send();
+            _signalService.GetSignal<ToggledSelectionForTurretSignal>().Send(turretType);
         }
 
-        private void ToggleSelectionForFreezeTurret()
-        {
-            _signalService.GetSignal<ToggledSelectionForFreezeTurretSignal>().Send();
-        }
-
-        private void PlaceTurret()
+        private void TryPlaceTurret()
         {
             var ray = _camera.ScreenPointToRay(UnityEngine.Input.mousePosition);
             if (Physics.Raycast(ray, out var hit, 1000f, TerrainMask))
             {
                 var mouseWorldPosition = hit.point;
-                _signalService.GetSignal<PlacedTurretSignal>().Send(mouseWorldPosition);
+                _signalService.GetSignal<AttemptedTurretPlacementSignal>().Send(mouseWorldPosition);
             }
         }
     }
