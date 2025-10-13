@@ -31,7 +31,7 @@ namespace TowerDefense.Player
 
             _signalService.GetSignal<ToggledSelectionForTurretSignal>().AddListener(OnToggleSelectionForTurret);
             _signalService.GetSignal<AttemptedTurretPlacementSignal>().AddListener(OnTurretPlacementAttempt);
-            _signalService.GetSignal<LevelRestartedSignal>().AddListener(OnLevelRestarted);
+            _signalService.GetSignal<GameRestartedSignal>().AddListener(OnGameRestarted);
 
             _spawnedTurrets = new List<Turret>();
         }
@@ -40,7 +40,7 @@ namespace TowerDefense.Player
         {
             _signalService.GetSignal<ToggledSelectionForTurretSignal>().RemoveListener(OnToggleSelectionForTurret);
             _signalService.GetSignal<AttemptedTurretPlacementSignal>().RemoveListener(OnTurretPlacementAttempt);
-            _signalService.GetSignal<LevelRestartedSignal>().RemoveListener(OnLevelRestarted);
+            _signalService.GetSignal<GameRestartedSignal>().RemoveListener(OnGameRestarted);
         }
 
         private void OnToggleSelectionForTurret(TurretType turretType)
@@ -73,7 +73,7 @@ namespace TowerDefense.Player
             _signalService.GetSignal<ToggledSelectionForTurretSignal>().Send(_selectedTurretType);
         }
 
-        private void OnLevelRestarted()
+        private void OnGameRestarted()
         {
             foreach (var turret in _spawnedTurrets)
             {

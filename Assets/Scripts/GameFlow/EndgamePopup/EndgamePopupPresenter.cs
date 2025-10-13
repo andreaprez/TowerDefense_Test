@@ -73,7 +73,7 @@ namespace TowerDefense.GameFlow.EndgamePopup
         private void OnRestartButtonPressed()
         {
             _view.Hide();
-            _signalService.GetSignal<LevelRestartedSignal>().Send();
+            _signalService.GetSignal<GameRestartedSignal>().Send();
         }
 
         private void OnMenuButtonPressed()

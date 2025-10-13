@@ -2,5 +2,5 @@
 
 namespace TowerDefense.GameFlow
 {
-    public class LevelRestartedSignal : Signal { }
+    public class GameRestartedSignal : Signal { }
 }

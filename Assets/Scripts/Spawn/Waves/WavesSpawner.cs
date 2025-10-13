@@ -28,13 +28,13 @@ namespace TowerDefense.Spawn
         {
             _signalService = ServiceLocator.GetService<SignalService>();
             _signalService.GetSignal<EnemyDiedSignal>().AddListener(OnEnemyDied);
-            _signalService.GetSignal<LevelRestartedSignal>().AddListener(OnLevelRestarted);
+            _signalService.GetSignal<GameRestartedSignal>().AddListener(OnGameRestarted);
         }
 
         private void OnDestroy()
         {
             _signalService.GetSignal<EnemyDiedSignal>().RemoveListener(OnEnemyDied);
-            _signalService.GetSignal<LevelRestartedSignal>().RemoveListener(OnLevelRestarted);
+            _signalService.GetSignal<GameRestartedSignal>().RemoveListener(OnGameRestarted);
         }
 
         private void SpawnWave()
@@ -80,7 +80,7 @@ namespace TowerDefense.Spawn
             _signalService.GetSignal<GameEndedSignal>().Send(true);
         }
 
-        private void OnLevelRestarted()
+        private void OnGameRestarted()
         {
             foreach (var enemy in _spawnedEnemies)
             {
