@@ -3,8 +3,8 @@ using UnityEngine;
 
 namespace TowerDefense.Spawn
 {
-    [CreateAssetMenu(menuName = "Tower Defense/Spawn Config")]
-    public class SpawnConfig : ScriptableObject
+    [CreateAssetMenu(menuName = "Tower Defense/Fixed Spawn Config")]
+    public class FixedSpawnConfig : ScriptableObject
     {
         public List<GameObject> PrefabsToSpawn;
         public int SpawnFrequencyInSeconds;

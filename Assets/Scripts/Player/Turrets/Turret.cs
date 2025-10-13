@@ -31,6 +31,7 @@ namespace TowerDefense.Player
             _gameFlowService = ServiceLocator.GetService<GameFlowService>();
             _targetsInRange = new Dictionary<IDamageReceiver, Transform>();
             _rangeCollider.radius = _turretConfig.Range;
+            _elapsedTime = _turretConfig.AttackRateInSeconds;
         }
 
         private void Update()

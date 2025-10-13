@@ -1,0 +1,26 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!114 &11400000
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 0}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 3653d1211d6a82d4e92f7f4504dd3429, type: 3}
+  m_Name: WavesSpawnConfig
+  m_EditorClassIdentifier: 
+  Waves:
+  - EnemyGroups:
+    - Prefab: {fileID: 4760064878390268021, guid: cc1690cde1bfb49158f54df1062eaf1a,
+        type: 3}
+      Quantity: 6
+  - EnemyGroups:
+    - Prefab: {fileID: 4760064878390268021, guid: cc1690cde1bfb49158f54df1062eaf1a,
+        type: 3}
+      Quantity: 5
+    - Prefab: {fileID: 1398451794235292840, guid: 03dfb865ef6474e68a8586ba6eb0492d,
+        type: 3}
+      Quantity: 3

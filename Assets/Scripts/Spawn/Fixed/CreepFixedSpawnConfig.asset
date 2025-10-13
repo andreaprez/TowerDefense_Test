@@ -10,7 +10,7 @@ MonoBehaviour:
   m_Enabled: 1
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: 4116a62b8db1f5d49810f4f13e0e6384, type: 3}
-  m_Name: CreepSpawnConfig
+  m_Name: CreepFixedSpawnConfig
   m_EditorClassIdentifier: 
   PrefabsToSpawn:
   - {fileID: 6062474898863262898, guid: 03dfb865ef6474e68a8586ba6eb0492d, type: 3}

@@ -47,7 +47,7 @@ namespace TowerDefense.Combat
 
         public AreaEffect SetRange(float range)
         {
-            transform.localScale = Vector3.one * range * 2;
+            transform.localScale = Vector3.one * (range * 2);
             return this;
         }
         
