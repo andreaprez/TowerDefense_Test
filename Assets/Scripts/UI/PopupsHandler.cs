@@ -76,11 +76,12 @@ namespace TowerDefense.UI
 
         private bool TryInstantiateView(Type viewType, out IPopupView popupView)
         {
-            popupView = _popupPrefabs.Find(popup => popup.GetType() == viewType);
-            if (popupView != null)
+            var popupViewPrefab = _popupPrefabs.Find(popup => popup.GetType() == viewType);
+            if (popupViewPrefab != null)
             {
-                var popupViewInstance = Instantiate((popupView as Component).gameObject, _popupsRoot);
-                popupViewInstance.name = (popupView as Component).gameObject.name.Replace("View", "");
+                var popupViewInstance = Instantiate(popupViewPrefab, _popupsRoot);
+                popupViewInstance.name = popupViewPrefab.gameObject.name.Replace("View", "");
+                popupView = popupViewInstance.GetComponent<IPopupView>();
                 return true;
             }
 
