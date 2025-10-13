@@ -8,23 +8,23 @@ namespace TowerDefense.GameFlow.EndgamePopup
     public class EndgamePopupView : PopupView
     {
         [SerializeField] private Text _messageText;
-        [SerializeField] private Button _menuButton;
         [SerializeField] private Button _restartButton;
+        [SerializeField] private Button _menuButton;
 
-        public event Action MenuButtonPressed;
         public event Action RestartButtonPressed;
+        public event Action MenuButtonPressed;
 
         public override void Show()
         {
-            _menuButton.onClick.AddListener(OnMenuButtonPressed);
             _restartButton.onClick.AddListener(OnRestartButtonPressed);
+            _menuButton.onClick.AddListener(OnMenuButtonPressed);
             base.Show();
         }
 
         public override void Hide()
         {
-            _menuButton.onClick.RemoveListener(OnMenuButtonPressed);
             _restartButton.onClick.RemoveListener(OnRestartButtonPressed);
+            _menuButton.onClick.RemoveListener(OnMenuButtonPressed);
             base.Hide();
         }
 
@@ -33,14 +33,14 @@ namespace TowerDefense.GameFlow.EndgamePopup
             _messageText.text = message;
         }
 
-        private void OnMenuButtonPressed()
-        {
-            MenuButtonPressed?.Invoke();
-        }
-
         private void OnRestartButtonPressed()
         {
             RestartButtonPressed?.Invoke();
+        }
+
+        private void OnMenuButtonPressed()
+        {
+            MenuButtonPressed?.Invoke();
         }
     }
 }

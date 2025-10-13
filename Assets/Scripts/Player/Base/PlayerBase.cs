@@ -38,8 +38,8 @@ namespace TowerDefense.Player
 
         private void Die()
         {
-            Destroy(gameObject);
             _signalService.GetSignal<GameEndedSignal>().Send(false);
+            Destroy(gameObject);
         }
 
         public void ApplyDamage(int damagePoints)
