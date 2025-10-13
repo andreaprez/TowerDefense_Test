@@ -7,9 +7,14 @@ namespace TowerDefense.GameFlow.EndgamePopup
 {
     public class EndgamePopupView : PopupView
     {
+        [SerializeField] private Image _panelImage;
         [SerializeField] private Text _messageText;
         [SerializeField] private Button _restartButton;
         [SerializeField] private Button _menuButton;
+
+        [Header("Colors")]
+        [SerializeField] public Color WinPanelColor;
+        [SerializeField] public Color LosePanelColor;
 
         public event Action RestartButtonPressed;
         public event Action MenuButtonPressed;
@@ -26,6 +31,11 @@ namespace TowerDefense.GameFlow.EndgamePopup
             _restartButton.onClick.RemoveListener(OnRestartButtonPressed);
             _menuButton.onClick.RemoveListener(OnMenuButtonPressed);
             base.Hide();
+        }
+
+        public void OnPanelColorChanged(Color color)
+        {
+            _panelImage.color = color;
         }
 
         public void OnMessageChanged(string message)

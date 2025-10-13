@@ -50,11 +50,13 @@ namespace TowerDefense.GameFlow.EndgamePopup
         private void SetupModel(bool isWin)
         {
             _model.Message.Value = isWin ? "You Won!" : "You Lost!";
+            _model.PanelColor.Value = isWin ? _view.WinPanelColor : _view.LosePanelColor;
         }
 
         private void AddViewObservers()
         {
             _model.Message.ValueChanged += _view.OnMessageChanged;
+            _model.PanelColor.ValueChanged += _view.OnPanelColorChanged;
 
             _view.RestartButtonPressed += OnRestartButtonPressed;
             _view.MenuButtonPressed += OnMenuButtonPressed;
@@ -64,6 +66,7 @@ namespace TowerDefense.GameFlow.EndgamePopup
         private void RemoveViewObservers()
         {
             _model.Message.ValueChanged -= _view.OnMessageChanged;
+            _model.PanelColor.ValueChanged -= _view.OnPanelColorChanged;
 
             _view.RestartButtonPressed -= OnRestartButtonPressed;
             _view.MenuButtonPressed -= OnMenuButtonPressed;
