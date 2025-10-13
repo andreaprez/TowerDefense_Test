@@ -14,5 +14,5 @@ MonoBehaviour:
   m_EditorClassIdentifier: 
   HitPoints: 10
   Damage: 1
-  Speed: 4
+  Speed: 2
   DeathReward: 1
