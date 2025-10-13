@@ -1,3 +1,4 @@
+using TowerDefense.GameFlow;
 using TowerDefense.Input;
 using TowerDefense.Service;
 using TowerDefense.Signals;
@@ -11,6 +12,7 @@ namespace TowerDefense.Player
         [SerializeField] private TurretButton _regularTurretButton;
         [SerializeField] private TurretButton _freezeTurretButton;
         [SerializeField] private Color _selectedColor;
+        [SerializeField] private GameObject _buttonsHolder;
 
         private SignalService _signalService;
         private TurretButton _selectedTurret;
@@ -24,6 +26,8 @@ namespace TowerDefense.Player
         {
             _signalService = ServiceLocator.GetService<SignalService>();
             _signalService.GetSignal<ToggledSelectionForTurretSignal>().AddListener(OnToggleSelectionForTurret);
+            _signalService.GetSignal<GameStartedSignal>().AddListener(OnGameStarted);
+            _signalService.GetSignal<GameEndedSignal>().AddListener(OnGameEnded);
             _signalService.GetSignal<GameRestartedSignal>().AddListener(OnGameRestarted);
             SetupRegularTurretButton();
             SetupFreezeTurretButton();
@@ -76,6 +80,16 @@ namespace TowerDefense.Player
             _selectedTurret?.SetImageColor(_selectedTurret == turretButton ? _selectedColor : Color.white);
         }
 
+        private void OnGameStarted()
+        {
+            _buttonsHolder.SetActive(true);
+        }
+
+        private void OnGameEnded(bool isWin)
+        {
+            _buttonsHolder.SetActive(false);
+        }
+
         private void OnGameRestarted()
         {
             if (_selectedTurret)
@@ -83,6 +97,7 @@ namespace TowerDefense.Player
                 _selectedTurret.SetImageColor(Color.white);
                 _selectedTurret = null;
             }
+            _buttonsHolder.SetActive(true);
         }
     }
 }
