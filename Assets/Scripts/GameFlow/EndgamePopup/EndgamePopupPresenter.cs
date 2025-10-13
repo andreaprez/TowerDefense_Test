@@ -7,6 +7,9 @@ namespace TowerDefense.GameFlow.EndgamePopup
 {
     public class EndgamePopupPresenter
     {
+        private const string GameWinMessage = "You Won!";
+        private const string GameLoseMessage = "You Lost!";
+
         private readonly SceneLoadingService _sceneLoadingService;
         private readonly SignalService _signalService;
 
@@ -49,7 +52,7 @@ namespace TowerDefense.GameFlow.EndgamePopup
 
         private void SetupModel(bool isWin)
         {
-            _model.Message.Value = isWin ? "You Won!" : "You Lost!";
+            _model.Message.Value = isWin ? GameWinMessage : GameLoseMessage;
             _model.PanelColor.Value = isWin ? _view.WinPanelColor : _view.LosePanelColor;
         }
 
