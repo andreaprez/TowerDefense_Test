@@ -2172,6 +2172,7 @@ MonoBehaviour:
   - {fileID: 1626461532}
   - {fileID: 1582271247}
   - {fileID: 742935705}
+  _spawnPointOffset: 1.8
 --- !u!4 &1971702155
 Transform:
   m_ObjectHideFlags: 0

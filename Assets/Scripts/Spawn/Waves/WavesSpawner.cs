@@ -12,6 +12,7 @@ namespace TowerDefense.Spawn
     {
         [SerializeField] private WavesSpawnConfig _spawnConfig;
         [SerializeField] private List<Transform> _spawnPoints;
+        [SerializeField] private float _spawnPointOffset;
 
         private SignalService _signalService;
         private int _currentWave;
@@ -43,8 +44,12 @@ namespace TowerDefense.Spawn
             {
                 for (var i = 0; i < enemyGroup.Quantity; i++)
                 {
+                    var spawnPointOffsetX = _spawnPointOffset * Random.Range(-1, 2);
+                    var spawnPointOffsetZ = _spawnPointOffset * Random.Range(-1, 2);
+                    var spawnPointOffsetVector = new Vector3(spawnPointOffsetX, 0f, spawnPointOffsetZ);
                     var spawnPointIndex = Random.Range(0, _spawnPoints.Count);
-                    Instantiate(enemyGroup.Prefab, _spawnPoints[spawnPointIndex].position, Quaternion.identity, transform);
+                    var spawnPosition = _spawnPoints[spawnPointIndex].position + spawnPointOffsetVector;
+                    Instantiate(enemyGroup.Prefab, spawnPosition, Quaternion.identity, transform);
                     _enemyCounter++;
                 }
             }
