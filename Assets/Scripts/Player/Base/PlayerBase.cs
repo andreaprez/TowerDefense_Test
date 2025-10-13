@@ -32,6 +32,11 @@ namespace TowerDefense.Player
             _activeEffects = new List<CombatEffect>();
         }
 
+        private void OnDestroy()
+        {
+            _signalService.GetSignal<GameRestartedSignal>().RemoveListener(OnGameRestarted);
+        }
+
         private void SetHitPoints(int value)
         {
             _hitPoints = value;

@@ -48,6 +48,9 @@ namespace TowerDefense.Player
         private void OnDestroy()
         {
             _signalService.GetSignal<ToggledSelectionForTurretSignal>().RemoveListener(OnToggleSelectionForTurret);
+            _signalService.GetSignal<GameStartedSignal>().RemoveListener(OnGameStarted);
+            _signalService.GetSignal<GameEndedSignal>().RemoveListener(OnGameEnded);
+            _signalService.GetSignal<GameRestartedSignal>().RemoveListener(OnGameRestarted);
             _regularTurretButton.RemoveListener(OnRegularTurretButtonPressed);
             _freezeTurretButton.RemoveListener(OnFreezeTurretButtonPressed);
         }
