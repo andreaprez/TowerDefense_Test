@@ -12,7 +12,8 @@ namespace TowerDefense.GameFlow
 
         private void Awake()
         {
-            RegisterServices();
+            if (!ServiceLocator.HasServicesRegistered())
+                RegisterServices();
         }
 
         private void RegisterServices()
