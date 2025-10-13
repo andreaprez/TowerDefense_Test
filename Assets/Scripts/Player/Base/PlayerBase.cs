@@ -1,3 +1,4 @@
+using System.Collections.Generic;
 using TowerDefense.Combat;
 using TowerDefense.GameFlow;
 using TowerDefense.Service;
@@ -15,6 +16,7 @@ namespace TowerDefense.Player
 
         private SignalService _signalService;
         private int _hitPoints;
+        private List<CombatEffect> _activeEffects;
 
         private void Start()
         {
@@ -25,6 +27,7 @@ namespace TowerDefense.Player
         {
             _signalService = ServiceLocator.GetService<SignalService>();
             SetHitPoints(_baseConfig.HitPoints);
+            _activeEffects = new List<CombatEffect>();
         }
 
         private void SetHitPoints(int value)
@@ -44,6 +47,18 @@ namespace TowerDefense.Player
             SetHitPoints(_hitPoints - damagePoints);
             if (_hitPoints <= 0)
                 Die();
+        }
+
+        public void ApplyEffect(CombatEffect effectType)
+        {
+            if (!_activeEffects.Contains(effectType))
+                _activeEffects.Add(effectType);
+        }
+
+        public void RemoveEffect(CombatEffect effectType)
+        {
+            if (_activeEffects.Contains(effectType))
+                _activeEffects.Remove(effectType);
         }
 
         public TeamTag GetTeamTag()

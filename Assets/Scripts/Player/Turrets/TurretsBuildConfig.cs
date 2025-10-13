@@ -7,5 +7,6 @@ namespace TowerDefense.Player
     {
         public int TurretCost;
         public Turret RegularTurretPrefab;
+        public Turret FreezeTurretPrefab;
     }
 }

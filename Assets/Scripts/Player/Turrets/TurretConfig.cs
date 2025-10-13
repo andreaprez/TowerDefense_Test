@@ -6,9 +6,9 @@ namespace TowerDefense.Player
     public class TurretConfig : ScriptableObject
     {
         public float Range;
-        public float FireRateInSeconds;
+        public float AttackRateInSeconds;
+        public float AttackLifeTime;
         public float BulletSpeed;
-        public float BulletLifeTime;
         public int Damage;
     }
 }

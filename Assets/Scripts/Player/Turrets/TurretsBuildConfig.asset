@@ -15,3 +15,5 @@ MonoBehaviour:
   TurretCost: 5
   RegularTurretPrefab: {fileID: 7123579300304878520, guid: ad95cf0532fb840edb99302196037be4,
     type: 3}
+  FreezeTurretPrefab: {fileID: 5004939602369103586, guid: 7003d60893eeec942a3c6a8f00bee15a,
+    type: 3}

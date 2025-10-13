@@ -3,5 +3,5 @@ using UnityEngine;
 
 namespace TowerDefense.Input
 {
-    public class PlacedTurretSignal : Signal<Vector3> { }
+    public class AttemptedTurretPlacementSignal : Signal<Vector3> { }
 }

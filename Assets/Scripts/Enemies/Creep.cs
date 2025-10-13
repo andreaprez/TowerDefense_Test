@@ -19,7 +19,8 @@ namespace TowerDefense.Enemies
             transform.LookAt(_targetPosition, Vector3.up);
 
             var direction = _targetPosition - transform.position;
-            transform.position += direction.normalized * (_speed * Time.deltaTime);
+            var speed = _activeEffects.Contains(CombatEffect.Freeze) ? _speed * 0.5f : _speed;
+            transform.position += direction.normalized * (speed * Time.deltaTime);
         }
 
         private void OnTriggerEnter(Collider other)

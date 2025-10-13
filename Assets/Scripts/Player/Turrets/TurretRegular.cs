@@ -9,7 +9,7 @@ namespace TowerDefense.Player
             var bullet = Instantiate(_bulletPrefab, _bulletSpawnPoint.position, Quaternion.identity, transform);
             bullet.SetTeam(_teamTag)
                 .SetSpeed(_turretConfig.BulletSpeed)
-                .SetLifeTime(_turretConfig.BulletLifeTime)
+                .SetLifeTime(_turretConfig.AttackLifeTime)
                 .SetDamage(_turretConfig.Damage)
                 .SetTarget(_closestTarget.Item2);
         }
