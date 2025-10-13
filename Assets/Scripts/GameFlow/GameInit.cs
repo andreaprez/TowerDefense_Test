@@ -1,4 +1,5 @@
 ﻿using TowerDefense.Currency;
+using TowerDefense.Scene;
 using TowerDefense.Service;
 using TowerDefense.Signals;
 using UnityEngine;
@@ -11,12 +12,14 @@ namespace TowerDefense.GameFlow
 
         private void Awake()
         {
-            RegisterServices();
+            if (!ServiceLocator.HasServicesRegistered())
+                RegisterServices();
         }
 
         private void RegisterServices()
         {
             ServiceLocator.RegisterService<SignalService>(new SignalService());
+            ServiceLocator.RegisterService<SceneLoadingService>(new SceneLoadingService());
             ServiceLocator.RegisterService<GameFlowService>(new GameFlowService());
             ServiceLocator.RegisterService<CurrencyService>(new CurrencyService(_currencyConfig));
         }

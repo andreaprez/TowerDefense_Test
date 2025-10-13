@@ -1,10 +1,10 @@
+using TowerDefense.GameFlow;
 using TowerDefense.Input;
-using TowerDefense.Player;
 using TowerDefense.Service;
 using TowerDefense.Signals;
 using UnityEngine;
 
-namespace TowerDefense.UI
+namespace TowerDefense.Player
 {
     public class TurretsPanel : MonoBehaviour
     {
@@ -12,6 +12,7 @@ namespace TowerDefense.UI
         [SerializeField] private TurretButton _regularTurretButton;
         [SerializeField] private TurretButton _freezeTurretButton;
         [SerializeField] private Color _selectedColor;
+        [SerializeField] private GameObject _buttonsHolder;
 
         private SignalService _signalService;
         private TurretButton _selectedTurret;
@@ -25,6 +26,9 @@ namespace TowerDefense.UI
         {
             _signalService = ServiceLocator.GetService<SignalService>();
             _signalService.GetSignal<ToggledSelectionForTurretSignal>().AddListener(OnToggleSelectionForTurret);
+            _signalService.GetSignal<GameStartedSignal>().AddListener(OnGameStarted);
+            _signalService.GetSignal<GameEndedSignal>().AddListener(OnGameEnded);
+            _signalService.GetSignal<GameRestartedSignal>().AddListener(OnGameRestarted);
             SetupRegularTurretButton();
             SetupFreezeTurretButton();
         }
@@ -74,6 +78,26 @@ namespace TowerDefense.UI
             }
             _selectedTurret = _selectedTurret == turretButton ? null : turretButton;
             _selectedTurret?.SetImageColor(_selectedTurret == turretButton ? _selectedColor : Color.white);
+        }
+
+        private void OnGameStarted()
+        {
+            _buttonsHolder.SetActive(true);
+        }
+
+        private void OnGameEnded(bool isWin)
+        {
+            _buttonsHolder.SetActive(false);
+        }
+
+        private void OnGameRestarted()
+        {
+            if (_selectedTurret)
+            {
+                _selectedTurret.SetImageColor(Color.white);
+                _selectedTurret = null;
+            }
+            _buttonsHolder.SetActive(true);
         }
     }
 }

@@ -16,6 +16,7 @@ namespace TowerDefense.GameFlow
             _signalService = ServiceLocator.GetService<SignalService>();
             _signalService.GetSignal<GameStartedSignal>().AddListener(OnGameStarted);
             _signalService.GetSignal<GameEndedSignal>().AddListener(OnGameEnded);
+            _signalService.GetSignal<GameRestartedSignal>().AddListener(OnGameRestarted);
         }
 
         private void OnGameStarted()
@@ -26,6 +27,11 @@ namespace TowerDefense.GameFlow
         private void OnGameEnded(bool isWin)
         {
             EndGame(isWin);
+        }
+
+        private void OnGameRestarted()
+        {
+            StartGame();
         }
 
         private void StartGame()

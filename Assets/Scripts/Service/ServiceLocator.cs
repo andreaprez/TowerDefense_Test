@@ -32,5 +32,10 @@ namespace TowerDefense.Service
             Debug.LogError($"Service {serviceType.Name} is not registered in ServiceLocator");
             return default;
         }
+
+        public static bool HasServicesRegistered()
+        {
+            return _services.Count > 0;
+        }
     }
 }

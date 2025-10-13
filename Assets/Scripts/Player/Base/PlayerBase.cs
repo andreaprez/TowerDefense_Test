@@ -3,7 +3,6 @@ using TowerDefense.Combat;
 using TowerDefense.GameFlow;
 using TowerDefense.Service;
 using TowerDefense.Signals;
-using TowerDefense.UI;
 using UnityEngine;
 
 namespace TowerDefense.Player
@@ -26,6 +25,8 @@ namespace TowerDefense.Player
         private void Initialize()
         {
             _signalService = ServiceLocator.GetService<SignalService>();
+            _signalService.GetSignal<GameRestartedSignal>().AddListener(OnGameRestarted);
+
             SetHitPoints(_baseConfig.HitPoints);
             _activeEffects = new List<CombatEffect>();
         }
@@ -38,8 +39,14 @@ namespace TowerDefense.Player
 
         private void Die()
         {
-            Destroy(gameObject);
             _signalService.GetSignal<GameEndedSignal>().Send(false);
+            Destroy(gameObject);
+        }
+
+        private void OnGameRestarted()
+        {
+            SetHitPoints(_baseConfig.HitPoints);
+            _activeEffects = new List<CombatEffect>();
         }
 
         public void ApplyDamage(int damagePoints)

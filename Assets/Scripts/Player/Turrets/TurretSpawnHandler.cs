@@ -1,4 +1,7 @@
-﻿using TowerDefense.Currency;
+﻿using System;
+using System.Collections.Generic;
+using TowerDefense.Currency;
+using TowerDefense.GameFlow;
 using TowerDefense.Input;
 using TowerDefense.Service;
 using TowerDefense.Signals;
@@ -14,6 +17,7 @@ namespace TowerDefense.Player
         private CurrencyService _currencyService;
         private Turret _selectedTurret;
         private TurretType _selectedTurretType;
+        private List<Turret> _spawnedTurrets;
 
         private void Start()
         {
@@ -24,14 +28,19 @@ namespace TowerDefense.Player
         {
             _signalService = ServiceLocator.GetService<SignalService>();
             _currencyService = ServiceLocator.GetService<CurrencyService>();
+
             _signalService.GetSignal<ToggledSelectionForTurretSignal>().AddListener(OnToggleSelectionForTurret);
             _signalService.GetSignal<AttemptedTurretPlacementSignal>().AddListener(OnTurretPlacementAttempt);
+            _signalService.GetSignal<GameRestartedSignal>().AddListener(OnGameRestarted);
+
+            _spawnedTurrets = new List<Turret>();
         }
 
         private void OnDestroy()
         {
             _signalService.GetSignal<ToggledSelectionForTurretSignal>().RemoveListener(OnToggleSelectionForTurret);
             _signalService.GetSignal<AttemptedTurretPlacementSignal>().RemoveListener(OnTurretPlacementAttempt);
+            _signalService.GetSignal<GameRestartedSignal>().RemoveListener(OnGameRestarted);
         }
 
         private void OnToggleSelectionForTurret(TurretType turretType)
@@ -58,9 +67,22 @@ namespace TowerDefense.Player
             if (_turretsBuildConfig.TurretCost > _currencyService.Coins)
                 return;
 
-            Instantiate(_selectedTurret, position, Quaternion.identity, transform);
-            _signalService.GetSignal<ToggledSelectionForTurretSignal>().Send(_selectedTurretType);
+            var newTurret = Instantiate(_selectedTurret, position, Quaternion.identity, transform);
+            _spawnedTurrets.Add(newTurret);
             _currencyService.RemoveCoins(_turretsBuildConfig.TurretCost);
+            _signalService.GetSignal<ToggledSelectionForTurretSignal>().Send(_selectedTurretType);
+        }
+
+        private void OnGameRestarted()
+        {
+            foreach (var turret in _spawnedTurrets)
+            {
+                Destroy(turret.gameObject);
+            }
+            _spawnedTurrets.Clear();
+
+            if (_selectedTurret)
+                _selectedTurret = null;
         }
     }
 }

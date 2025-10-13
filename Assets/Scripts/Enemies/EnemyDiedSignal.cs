@@ -2,5 +2,5 @@
 
 namespace TowerDefense.Enemies
 {
-    public class EnemyDiedSignal : Signal { }
+    public class EnemyDiedSignal : Signal<Enemy> { }
 }
