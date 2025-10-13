@@ -42,6 +42,7 @@ namespace TowerDefense.Enemies
 
         private void AutoDestroy()
         {
+            _signalService.GetSignal<EnemyDiedSignal>().Send();
             _hitPoints = 0;
             Destroy(gameObject);
         }

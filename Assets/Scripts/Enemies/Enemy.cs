@@ -3,6 +3,7 @@ using TowerDefense.Combat;
 using TowerDefense.Currency;
 using TowerDefense.GameFlow;
 using TowerDefense.Service;
+using TowerDefense.Signals;
 using TowerDefense.UI;
 using UnityEngine;
 
@@ -14,6 +15,7 @@ namespace TowerDefense.Enemies
         [SerializeField] private HealthBarDisplay _healthBar;
 
         private CurrencyService _currencyService;
+        protected SignalService _signalService;
         protected GameFlowService _gameFlowService;
         protected TeamTag _teamTag;
         protected int _hitPoints;
@@ -30,6 +32,7 @@ namespace TowerDefense.Enemies
         protected virtual void Initialize()
         {
             _currencyService = ServiceLocator.GetService<CurrencyService>();
+            _signalService = ServiceLocator.GetService<SignalService>();
             _gameFlowService = ServiceLocator.GetService<GameFlowService>();
             _teamTag = TeamTag.Enemy;
             SetHitPoints(_enemyConfig.HitPoints);
@@ -47,6 +50,7 @@ namespace TowerDefense.Enemies
 
         protected virtual void Die()
         {
+            _signalService.GetSignal<EnemyDiedSignal>().Send();
             _currencyService.AddCoins(_enemyConfig.DeathReward);
             Destroy(gameObject);
         }
