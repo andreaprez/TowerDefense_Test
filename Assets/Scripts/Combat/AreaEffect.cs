@@ -76,8 +76,10 @@ namespace TowerDefense.Combat
             if (damageReceiver.GetTeamTag() == _teamTag)
                 return;
 
-            damageReceiver.ApplyEffect(_effectType);
+            if (_affectedTargets.Contains(damageReceiver))
+                return;
             _affectedTargets.Add(damageReceiver);
+            damageReceiver.ApplyEffect(_effectType);
         }
 
         private void RemoveEffectOnAllTargets()

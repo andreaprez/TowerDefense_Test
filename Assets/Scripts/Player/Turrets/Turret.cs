@@ -78,6 +78,8 @@ namespace TowerDefense.Player
             if (damageReceiver.GetTeamTag() == _teamTag)
                 return;
 
+            if (_targetsInRange.ContainsKey(damageReceiver))
+                return;
             _targetsInRange.Add(damageReceiver, other.transform);
             TryUpdateClosestTarget();
         }
