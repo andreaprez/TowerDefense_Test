@@ -1,0 +1,27 @@
+﻿using TowerDefense.Currency;
+using TowerDefense.Scene;
+using TowerDefense.Service;
+using TowerDefense.Signals;
+using UnityEngine;
+
+namespace TowerDefense.GameFlow
+{
+    public class GameInit : MonoBehaviour
+    {
+        [SerializeField] private CurrencyConfig _currencyConfig;
+
+        private void Awake()
+        {
+            if (!ServiceLocator.HasServicesRegistered())
+                RegisterServices();
+        }
+
+        private void RegisterServices()
+        {
+            ServiceLocator.RegisterService<SignalService>(new SignalService());
+            ServiceLocator.RegisterService<SceneLoadingService>(new SceneLoadingService());
+            ServiceLocator.RegisterService<GameFlowService>(new GameFlowService());
+            ServiceLocator.RegisterService<CurrencyService>(new CurrencyService(_currencyConfig));
+        }
+    }
+}
