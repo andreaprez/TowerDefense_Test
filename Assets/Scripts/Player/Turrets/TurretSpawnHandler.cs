@@ -1,5 +1,4 @@
-﻿using System;
-using System.Collections.Generic;
+﻿using System.Collections.Generic;
 using TowerDefense.Currency;
 using TowerDefense.GameFlow;
 using TowerDefense.Input;
@@ -12,12 +11,14 @@ namespace TowerDefense.Player
     public class TurretSpawnHandler : MonoBehaviour
     {
         [SerializeField] private TurretsBuildConfig _turretsBuildConfig;
+        [SerializeField] private TurretGhost _turretGhostPrefab;
 
         private SignalService _signalService;
         private CurrencyService _currencyService;
         private Turret _selectedTurret;
         private TurretType _selectedTurretType;
         private List<Turret> _spawnedTurrets;
+        private TurretGhost _turretGhost;
 
         private void Start()
         {
@@ -57,6 +58,23 @@ namespace TowerDefense.Player
             }
             _selectedTurret = _selectedTurret == turretPrefab ? null : turretPrefab;
             _selectedTurretType = turretType;
+
+            if (_selectedTurret && !_turretGhost)
+                InstantiateTurretGhost();
+            else if (!_selectedTurret)
+                DestroyTurretGhost();
+        }
+
+        private void InstantiateTurretGhost()
+        {
+            var mousePos = Camera.main.ScreenToWorldPoint(new Vector3(UnityEngine.Input.mousePosition.x, UnityEngine.Input.mousePosition.y, -Camera.main.transform.position.z));
+            _turretGhost = Instantiate(_turretGhostPrefab, mousePos, Quaternion.identity, transform);
+        }
+
+        private void DestroyTurretGhost()
+        {
+            Destroy(_turretGhost.gameObject);
+            _turretGhost = null;
         }
 
         private void OnTurretPlacementAttempt(Vector3 position)
@@ -82,7 +100,10 @@ namespace TowerDefense.Player
             _spawnedTurrets.Clear();
 
             if (_selectedTurret)
+            {
                 _selectedTurret = null;
+                DestroyTurretGhost();
+            }
         }
     }
 }
