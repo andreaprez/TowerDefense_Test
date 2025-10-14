@@ -21,9 +21,10 @@ namespace TowerDefense.Currency
         public void Init()
         {
             _signalService = ServiceLocator.GetService<SignalService>();
+            _signalService.GetSignal<GameStartedSignal>().AddListener(OnGameStarted);
             _signalService.GetSignal<GameRestartedSignal>().AddListener(OnGameRestarted);
 
-            _coins = _currencyConfig.InitialCoins;
+            SetInitialCoins();
         }
 
         public void AddCoins(int amount)
@@ -39,10 +40,20 @@ namespace TowerDefense.Currency
             _signalService.GetSignal<CoinsUpdatedSignal>().Send(_coins);
         }
 
-        private void OnGameRestarted()
+        private void SetInitialCoins()
         {
             _coins = _currencyConfig.InitialCoins;
             _signalService.GetSignal<CoinsUpdatedSignal>().Send(_coins);
+        }
+
+        private void OnGameStarted()
+        {
+            SetInitialCoins();
+        }
+
+        private void OnGameRestarted()
+        {
+            SetInitialCoins();
         }
     }
 }

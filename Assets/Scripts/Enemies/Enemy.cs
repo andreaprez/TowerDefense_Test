@@ -4,7 +4,6 @@ using TowerDefense.Currency;
 using TowerDefense.GameFlow;
 using TowerDefense.Service;
 using TowerDefense.Signals;
-using TowerDefense.UI;
 using UnityEngine;
 
 namespace TowerDefense.Enemies
@@ -24,16 +23,19 @@ namespace TowerDefense.Enemies
         protected Vector3 _targetPosition;
         protected List<CombatEffect> _activeEffects;
 
-        private void Start()
-        {
-            Initialize();
-        }
+        public abstract EnemyType GetEnemyType();
 
-        protected virtual void Initialize()
+        private void Start()
         {
             _currencyService = ServiceLocator.GetService<CurrencyService>();
             _signalService = ServiceLocator.GetService<SignalService>();
             _gameFlowService = ServiceLocator.GetService<GameFlowService>();
+
+            Initialize();
+        }
+
+        public virtual void Initialize()
+        {
             _teamTag = TeamTag.Enemy;
             SetHitPoints(_enemyConfig.HitPoints);
             _damage = _enemyConfig.Damage;
@@ -42,7 +44,7 @@ namespace TowerDefense.Enemies
             _activeEffects = new List<CombatEffect>();
         }
 
-        private void SetHitPoints(int value)
+        protected void SetHitPoints(int value)
         {
             _hitPoints = value;
             _healthBar.UpdateBarFill(_hitPoints, _enemyConfig.HitPoints);
@@ -52,8 +54,10 @@ namespace TowerDefense.Enemies
         {
             _currencyService.AddCoins(_enemyConfig.DeathReward);
             _signalService.GetSignal<EnemyDiedSignal>().Send(this);
-            Destroy(gameObject);
+            ReleaseFromPool();
         }
+
+        protected abstract void ReleaseFromPool();
 
         protected bool IsAlive()
         {

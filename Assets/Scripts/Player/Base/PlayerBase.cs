@@ -12,6 +12,7 @@ namespace TowerDefense.Player
         [SerializeField] private PlayerBaseConfig _baseConfig;
         [SerializeField] private TeamTag _teamTag;
         [SerializeField] private HealthBarDisplay _healthBar;
+        [SerializeField] private GameObject _baseModel;
 
         private SignalService _signalService;
         private int _hitPoints;
@@ -31,6 +32,11 @@ namespace TowerDefense.Player
             _activeEffects = new List<CombatEffect>();
         }
 
+        private void OnDestroy()
+        {
+            _signalService.GetSignal<GameRestartedSignal>().RemoveListener(OnGameRestarted);
+        }
+
         private void SetHitPoints(int value)
         {
             _hitPoints = value;
@@ -40,11 +46,12 @@ namespace TowerDefense.Player
         private void Die()
         {
             _signalService.GetSignal<GameEndedSignal>().Send(false);
-            Destroy(gameObject);
+            _baseModel.SetActive(false);
         }
 
         private void OnGameRestarted()
         {
+            _baseModel.SetActive(true);
             SetHitPoints(_baseConfig.HitPoints);
             _activeEffects = new List<CombatEffect>();
         }

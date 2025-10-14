@@ -1,11 +1,32 @@
 using TowerDefense.Combat;
 using TowerDefense.GameFlow;
+using TowerDefense.Utils;
 using UnityEngine;
 
 namespace TowerDefense.Enemies
 {
     public class Creep : Enemy
     {
+        [SerializeField] private EnemyType _enemyType;
+
+        public override EnemyType GetEnemyType()
+        {
+            return _enemyType;
+        }
+
+        protected override void ReleaseFromPool()
+        {
+            switch (GetEnemyType())
+            {
+                case EnemyType.SmallCreep:
+                    PoolHandler.Instance.SmallCreepsPool.Release(gameObject);
+                    break;
+                case EnemyType.BigCreep:
+                    PoolHandler.Instance.BigCreepsPool.Release(gameObject);
+                    break;
+            }
+        }
+
         private void Update()
         {
             if (_gameFlowService.GameState != GameState.Gameplay || !IsAlive())
@@ -42,9 +63,9 @@ namespace TowerDefense.Enemies
 
         private void AutoDestroy()
         {
-            _hitPoints = 0;
+            SetHitPoints(0);
             _signalService.GetSignal<EnemyDiedSignal>().Send(this);
-            Destroy(gameObject);
+            ReleaseFromPool();
         }
     }
 }

@@ -48,7 +48,7 @@ namespace TowerDefense.Player
             if (_targetsInRange.Count == 0)
                 return;
 
-            if (_closestTarget?.Item1 == null || _closestTarget?.Item2 == null)
+            if (_closestTarget?.Item1 == null || _closestTarget.Item2 == null || !_closestTarget.Item2.gameObject.activeInHierarchy)
             {
                 TryUpdateClosestTarget();
                 return;
@@ -122,7 +122,7 @@ namespace TowerDefense.Player
             var targetsToCleanup = new List<IDamageReceiver>();
             foreach (var target in _targetsInRange)
             {
-                if (target.Key == null || target.Value == null)
+                if (target.Key == null || target.Value == null || !target.Value.gameObject.activeInHierarchy)
                     targetsToCleanup.Add(target.Key);
             }
             foreach (var target in targetsToCleanup)

@@ -12,7 +12,7 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 017d1e42147b3ac408e6afaa8ca6c683, type: 3}
   m_Name: CreepBigEnemyConfig
   m_EditorClassIdentifier: 
-  HitPoints: 15
-  Damage: 2
+  HitPoints: 18
+  Damage: 3
   Speed: 1
   DeathReward: 1

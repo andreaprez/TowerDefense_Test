@@ -1,5 +1,7 @@
-﻿using TowerDefense.GameFlow;
+﻿using System;
+using TowerDefense.GameFlow;
 using TowerDefense.Service;
+using TowerDefense.Utils;
 using UnityEngine;
 
 namespace TowerDefense.Combat
@@ -25,6 +27,11 @@ namespace TowerDefense.Combat
             _gameFlowService = ServiceLocator.GetService<GameFlowService>();
         }
 
+        private void OnEnable()
+        {
+            _elapsedTime = 0;
+        }
+
         private void Update()
         {
             if (_gameFlowService.GameState != GameState.Gameplay)
@@ -32,7 +39,7 @@ namespace TowerDefense.Combat
 
             if (_elapsedTime >= _lifeTime)
             {
-                Destroy(gameObject);
+                PoolHandler.Instance.BulletsPool.Release(gameObject);
                 return;
             }
             _elapsedTime += Time.deltaTime;
@@ -92,7 +99,7 @@ namespace TowerDefense.Combat
                 return;
 
             damageReceiver.ApplyDamage(_damage);
-            Destroy(gameObject);
+            PoolHandler.Instance.BulletsPool.Release(gameObject);
         }
     }
 }

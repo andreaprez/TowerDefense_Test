@@ -12,8 +12,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: f4764fd1eb6caee44835befccb3e6307, type: 3}
   m_Name: FreezeTurretConfig
   m_EditorClassIdentifier: 
-  Range: 6
-  AttackRateInSeconds: 9
-  AttackLifeTime: 5
+  Range: 7
+  AttackRateInSeconds: 10
+  AttackLifeTime: 6
   BulletSpeed: 0
   Damage: 0

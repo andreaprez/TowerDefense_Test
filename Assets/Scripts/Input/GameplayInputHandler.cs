@@ -1,5 +1,6 @@
 ﻿using TowerDefense.GameFlow;
 using TowerDefense.Player;
+using TowerDefense.Scene;
 using TowerDefense.Service;
 using TowerDefense.Signals;
 using UnityEngine;
@@ -13,12 +14,14 @@ namespace TowerDefense.Input
 
         private SignalService _signalService;
         private GameFlowService _gameFlowService;
+        private SceneLoadingService _sceneLoadingService;
         private Camera _camera;
 
         private void Start()
         {
             _signalService = ServiceLocator.GetService<SignalService>();
             _gameFlowService = ServiceLocator.GetService<GameFlowService>();
+            _sceneLoadingService = ServiceLocator.GetService<SceneLoadingService>();
             _camera = Camera.main;
         }
 
@@ -35,6 +38,9 @@ namespace TowerDefense.Input
 
             if (UnityEngine.Input.GetMouseButtonDown(0))
                 TryPlaceTurret();
+            
+            if (UnityEngine.Input.GetKeyUp(KeyCode.Escape))
+                GoToStartMenu();
         }
 
         private void ToggleSelectionForTurret(TurretType turretType)
@@ -50,6 +56,11 @@ namespace TowerDefense.Input
                 var mouseWorldPosition = hit.point;
                 _signalService.GetSignal<AttemptedTurretPlacementSignal>().Send(mouseWorldPosition);
             }
+        }
+
+        private void GoToStartMenu()
+        {
+            _sceneLoadingService.LoadStartMenuScene();
         }
     }
 }
